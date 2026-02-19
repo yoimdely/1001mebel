@@ -35,7 +35,6 @@ const currentPath = Astro.url.pathname;
         <div class="header__contact">
           <a href={site.phoneLink} class="header__phone">{site.phone}</a>
         </div>
-        <a href={site.telegramChannel} class="header__channel" target="_blank" rel="noopener noreferrer">TG канал</a>
         <Button href="/quiz" variant="primary" class="header__cta">Рассчитать цену</Button>
         <button class="header__toggle" type="button" aria-expanded="false" aria-controls="mobile-nav" data-nav-toggle>
           <span></span>
@@ -68,7 +67,6 @@ const currentPath = Astro.url.pathname;
         <a href={site.telegram} target="_blank" rel="noopener noreferrer">Telegram</a>
       </div>
       <a href={site.telegramChannel} class="mobile-nav__channel" target="_blank" rel="noopener noreferrer">Telegram‑канал</a>
-      <Button href="/quiz" variant="primary" class="mobile-nav__cta">Рассчитать цену</Button>
     </div>
   </div>
 </header>
@@ -95,7 +93,7 @@ const currentPath = Astro.url.pathname;
     display: grid;
     grid-template-columns: auto minmax(0, 1fr) auto;
     align-items: center;
-    gap: var(--space-7);
+    gap: clamp(12px, 1.8vw, var(--space-7));
   }
   .header__logo {
     display: inline-flex;
@@ -104,7 +102,7 @@ const currentPath = Astro.url.pathname;
     gap: var(--space-2);
   }
   .header__logo :global(.logo--mark) {
-    width: 58px;
+    width: clamp(108px, 8.2vw, 132px);
   }
   .header__logo :global(.logo-mobile) {
     display: none;
@@ -143,7 +141,7 @@ const currentPath = Astro.url.pathname;
   .header__actions {
     display: flex;
     align-items: center;
-    gap: var(--space-5);
+    gap: var(--space-3);
     white-space: nowrap;
     justify-self: end;
     flex-wrap: nowrap;
@@ -159,20 +157,7 @@ const currentPath = Astro.url.pathname;
     color: var(--text);
   }
   .header__phone:hover { color: var(--accent-strong); }
-  .header__channel {
-    font-size: 0.64rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--accent);
-    padding: 7px 16px;
-    border: 1px solid rgba(214, 179, 106, 0.5);
-    border-radius: 999px;
-  }
-  .header__channel:hover {
-    color: #0b0b0a;
-    background: var(--accent);
-  }
-  .header__cta {
+  .header__actions :global(.header__cta) {
     padding: calc(var(--space-2) + 2px) var(--space-4);
     font-size: 0.62rem;
   }
@@ -207,7 +192,7 @@ const currentPath = Astro.url.pathname;
       .header__logo :global(.logo--full) {
           width: clamp(120px, 10vw, 160px);
       }
-      .header__cta {
+      .header__actions :global(.header__cta) {
           padding: var(--space-2) var(--space-3);
           font-size: 0.6rem;
       }
@@ -217,14 +202,6 @@ const currentPath = Astro.url.pathname;
           display: none;
       }
   }
-  @media (max-width: 1200px) {
-      .header__channel {
-          display: none;
-      }
-      .header__actions {
-          gap: var(--space-3);
-      }
-  }
   @media (max-width: 1100px) {
       .header__nav {
           display: none;
@@ -232,7 +209,7 @@ const currentPath = Astro.url.pathname;
       .header__phone {
           display: none;
       }
-      .header__cta {
+      .header__actions :global(.header__cta) {
           display: none !important;
           visibility: hidden !important;
           opacity: 0 !important;
@@ -246,7 +223,7 @@ const currentPath = Astro.url.pathname;
       }
       .header__logo :global(.logo-mobile) {
           display: inline-flex;
-          width: clamp(140px, 40vw, 190px);
+          width: clamp(124px, 34vw, 168px);
       }
   }
   @media (max-width: 900px) {
@@ -329,10 +306,6 @@ const currentPath = Astro.url.pathname;
       letter-spacing: 0.16em;
       font-size: 0.7rem;
   }
-  .mobile-nav__cta {
-      display: none !important;
-  }
-
   body.nav-open .mobile-nav {
       transform: translateX(0);
   }

@@ -7,12 +7,7 @@ interface Props {
 
 const { variant = "full", class: className = "", alt = "1001 Мебель" } = Astro.props;
 
-const src =
-  variant === "full"
-    ? "/images/logo%20with%20text.png"
-    : variant === "mark"
-      ? "/images/logo%20without%20text.png"
-      : "/images/logo%202000x2000.png";
+const src = "/images/logo-gold.png";
 ---
 <span class:list={["logo", `logo--${variant}`, className]} aria-label={alt}>
   <img src={src} alt={alt} loading="eager" />
@@ -30,12 +25,12 @@ const src =
   height: auto;
 }
 .logo--full {
-  width: clamp(140px, 12vw, 180px);
+  width: clamp(144px, 11vw, 180px);
 }
 .logo--mark {
-  width: 56px;
+  width: clamp(108px, 8.2vw, 132px);
 }
 .logo--square {
-  width: 64px;
+  width: clamp(112px, 30vw, 146px);
 }
 </style>
