@@ -1,0 +1,44 @@
+{
+  "name": "more",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "gen:blog": "node scripts/generate-blog-index.mjs",
+    "dev": "npm run gen:blog && next dev",
+    "build": "npm run gen:blog && next build",
+    "start": "next start",
+    "lint": "next lint",
+    "cf:build": "npm run gen:blog && opennextjs-cloudflare build",
+    "cf:dev": "npm run gen:blog && opennextjs-cloudflare build && opennextjs-cloudflare preview",
+    "cf:deploy": "npm run gen:blog && opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+    "cf:upload": "npm run gen:blog && opennextjs-cloudflare build && opennextjs-cloudflare upload",
+    "cf:typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts"
+  },
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "date-fns": "^3.6.0",
+    "framer-motion": "^11.2.10",
+    "gray-matter": "^4.0.3",
+    "lucide-react": "^0.505.0",
+    "next": "15.5.10",
+    "next-mdx-remote": "^5.0.0",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "tailwind-merge": "^2.3.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@opennextjs/cloudflare": "^1.16.2",
+    "@tailwindcss/postcss": "^4.0.0-alpha.18",
+    "@tailwindcss/typography": "^0.5.13",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^8",
+    "eslint-config-next": "15.5.10",
+    "postcss": "^8",
+    "tailwindcss": "^4.0.0-alpha.18",
+    "typescript": "^5",
+    "wrangler": "^4.62.0"
+  }
+}

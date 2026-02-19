@@ -1,0 +1,94 @@
+{
+  "complex": {
+    "name": {
+      "value": "ЖК «Море»",
+      "status": "verified",
+      "sources": ["Официальные документы"],
+      "updatedAt": "2024-01-23"
+    },
+    "location": {
+      "value": "Сочи, ул. Полтавская, 21А, микрорайон Мамайка",
+      "status": "verified",
+      "sources": ["Официальный адрес"],
+      "updatedAt": "2024-01-23"
+    },
+    "distanceToSea": {
+      "value": "800 метров",
+      "status": "verified",
+      "sources": ["Яндекс.Карты"],
+      "updatedAt": "2024-01-23"
+    },
+    "completionDate": {
+      "value": "Сдан в эксплуатацию",
+      "status": "verified",
+      "sources": ["ЕИСЖС"],
+      "updatedAt": "2024-01-23"
+    },
+    "floors": {
+      "value": "12 этажей",
+      "status": "verified",
+      "sources": ["Проектная декларация"],
+      "updatedAt": "2024-01-23"
+    },
+    "developer": {
+      "value": "ГК «AVA Group»",
+      "status": "verified",
+      "sources": ["ЕИСЖС"],
+      "updatedAt": "2024-01-23"
+    }
+  },
+  "mortgage": {
+    "rate": {
+      "value": "от 6%",
+      "status": "verified",
+      "sources": ["Программы Сбербанк / ВТБ"],
+      "updatedAt": "2024-01-23"
+    },
+    "banks": {
+      "value": "Сбербанк, ВТБ, Альфа-Банк",
+      "status": "verified",
+      "sources": ["Сайт застройщика"],
+      "updatedAt": "2024-01-23"
+    }
+  },
+  "prices": {
+    "studios": {
+      "value": "от 8.5 млн ₽",
+      "status": "verified",
+      "sources": ["Актуальный прайс-лист"],
+      "updatedAt": "2024-01-23"
+    },
+    "oneRoom": {
+      "value": "от 12.2 млн ₽",
+      "status": "verified",
+      "sources": ["Актуальный прайс-лист"],
+      "updatedAt": "2024-01-23"
+    },
+    "twoRooms": {
+      "value": "от 18.5 млн ₽",
+      "status": "verified",
+      "sources": ["Актуальный прайс-лист"],
+      "updatedAt": "2024-01-23"
+    }
+  },
+  "contacts": {
+    "phone": {
+      "value": "+7 (918) 101-74-34",
+      "status": "verified",
+      "sources": ["Отдел продаж"],
+      "updatedAt": "2024-01-23"
+    },
+    "whatsapp": {
+      "value": "https://wa.me/79181017434",
+      "status": "verified",
+      "sources": ["Мессенджеры"],
+      "updatedAt": "2024-01-23"
+    },
+    "telegram": {
+      "value": "https://t.me/+79181017434",
+      "status": "verified",
+      "sources": ["Мессенджеры"],
+      "updatedAt": "2024-01-23"
+    }
+  }
+}
