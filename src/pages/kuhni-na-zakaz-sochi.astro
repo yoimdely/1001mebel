@@ -1,0 +1,166 @@
+﻿---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Section from "../components/ui/Section.astro";
+import Hero from "../components/ui/Hero.astro";
+import Grid from "../components/ui/Grid.astro";
+import Button from "../components/ui/Button.astro";
+import CTAFormShort from "../components/CTAFormShort.astro";
+import Steps from "../components/Steps.astro";
+import FAQ from "../components/FAQ.astro";
+import PortfolioGrid from "../components/PortfolioGrid.astro";
+import { portfolioItems } from "../data/portfolio";
+import { faqGeneral } from "../data/faq";
+import {
+  buildBreadcrumbSchema,
+  buildFaqSchema,
+  buildServiceSchema
+} from "../lib/schema";
+
+const breadcrumbs = [
+  { name: "Главная", url: "/" },
+  { name: "Кухни на заказ в Сочи", url: "/kuhni-na-zakaz-sochi" }
+];
+
+const steps = [
+  { title: "Бриф и замер", desc: "Снимаем точные размеры и узнаем сценарии использования кухни." },
+  { title: "Дизайн и планировка", desc: "Делаем 3D-проект, продумываем хранение и технику." },
+  { title: "Материалы и фурнитура", desc: "Показываем образцы и подбираем под бюджет." },
+  { title: "Фиксация сметы", desc: "Согласуем комплектацию и фиксируем цену в договоре." },
+  { title: "Производство", desc: "Контроль качества на каждом этапе изготовления." },
+  { title: "Монтаж", desc: "Бережная доставка и установка с гарантией." }
+];
+
+const stats = [
+  { n: '15 лет', t: 'Опыта', d: 'Мастерства в каждой детали' },
+  { n: '350+', t: 'Кухонь', d: 'Реализованных проектов' },
+  { n: '5 лет', t: 'Гарантии', d: 'На все наше производство' },
+  { n: '25 дн', t: 'Сроки', d: 'Среднее время проекта' }
+];
+
+const schema = [
+  buildBreadcrumbSchema(breadcrumbs),
+  buildServiceSchema({
+    name: "Кухни на заказ в Сочи",
+    description: "Проектирование, производство и установка кухонь на заказ в Сочи, Адлере и Красной Поляне.",
+    url: "/kuhni-na-zakaz-sochi"
+  }),
+  buildFaqSchema(faqGeneral)
+];
+
+const meta = {
+  title: "Кухни на заказ в Сочи",
+  description: "Производство премиальных кухонь на заказ в Сочи под ключ ⭐ Современные дизайн-проекты, итальянская фурнитура, гарантия качества ✓ Бесплатный замер и 3D-визуализация ✓ 15 лет опыта ✓ Работаем в Сочи, Адлере, Красной Поляне. Звоните!",
+  canonical: "/kuhni-na-zakaz-sochi"
+};
+---
+<BaseLayout {...meta} schema={schema}>
+  
+  <!-- HERO -->
+  <Hero
+    title="Кухни, где оживает вдохновение"
+    subtitle="Кулинарное пространство"
+    description="Мы верим, что кухня — это сердце дома. Место, где технологии встречаются с теплом встреч. Мы проектируем пространства, которые вдохновляют на созидание."
+    image="/images/kitchen-intro.jpg"
+    height="large"
+    overlay={true}
+  >
+    <div slot="actions" class="flex gap-4">
+      <Button href="#lead">Начать проект</Button>
+      <Button href="#portfolio" variant="secondary">Наши проекты</Button>
+    </div>
+  </Hero>
+
+
+  <!-- STATS -->
+  <Section>
+    <Grid columns={4} gap="medium">
+      {stats.map((item, i) => (
+        <div class="reveal-up">
+          <div class="font-serif text-4xl text-accent mb-2">{item.n}</div>
+          <h3 class="text-white text-lg font-bold uppercase tracking-wider mb-2">{item.t}</h3>
+          <p class="text-muted text-sm leading-relaxed">{item.d}</p>
+        </div>
+      ))}
+    </Grid>
+  </Section>
+
+  <!-- TYPOLOGY -->
+  <Section background="surface-2">
+    <div class="max-w-3xl mb-16 reveal-up">
+      <span class="text-accent text-xs font-bold tracking-[0.2em] uppercase block mb-4">Стилистика</span>
+      <h2 class="font-serif text-4xl md:text-5xl text-white mb-6">Типология вашего комфорта</h2>
+      <p class="text-lg text-muted">Мы работаем со всеми форматами: от эргономичных угловых решений до статусных кухонь с островом.</p>
+    </div>
+    
+    <Grid columns={3} gap="medium">
+      {[
+        { t: 'Линейные и угловые', d: 'Рациональная классика для квартир любой площади. Идеальный рабочий треугольник.' },
+        { t: 'С островом и полуостровом', d: 'Для просторных домов и кухонь-гостиных. Место притяжения всей семьи.' },
+        { t: 'Bespoke решения', d: 'Проектирование под сложную архитектуру, мансарды и ниши. Без компромиссов.' }
+      ].map((item, i) => (
+        <article class="bg-surface p-8 border border-white/5 rounded-sm hover:-translate-y-2 transition-transform duration-500 reveal-up">
+           <h3 class="text-xl mb-4 text-white font-serif">{item.t}</h3>
+           <p class="text-muted leading-relaxed text-sm">{item.d}</p>
+        </article>
+      ))}
+    </Grid>
+  </Section>
+
+  <!-- LEAD FORM -->
+  <Section id="lead">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center">
+      <div class="reveal-up">
+        <span class="text-accent text-xs font-bold tracking-[0.2em] uppercase block mb-4">Замер и проект</span>
+        <h2 class="font-serif text-3xl md:text-5xl text-white mb-6">Начнем путь к идеальной кухне</h2>
+        <p class="text-lg text-muted mb-10">
+          Бесплатный выезд дизайнера-технолога поможет избежать ошибок при планировании коммуникаций и обеспечит идеальную встройку техники.
+        </p>
+        
+        <div class="space-y-6">
+           {[
+             'Точный лазерный замер помещения',
+             '3D-проект в вашем стиле и цвете',
+             'Демонстрация сотен образцов фасадов'
+           ].map(item => (
+             <div class="flex items-center gap-4">
+                <span class="w-1.5 h-1.5 rounded-full bg-accent"></span>
+                <span class="text-white font-medium">{item}</span>
+             </div>
+           ))}
+        </div>
+      </div>
+      
+      <div class="bg-surface-2 p-8 md:p-12 rounded-lg border border-white/10 reveal-up">
+         <CTAFormShort title="Записаться на встречу" />
+      </div>
+    </div>
+  </Section>
+
+  <!-- PROCESS -->
+  <Section background="surface-2">
+    <div class="mb-16 reveal-up">
+      <span class="text-accent text-xs font-bold tracking-[0.2em] uppercase block mb-4">Процесс</span>
+      <h2 class="font-serif text-4xl md:text-5xl text-white">Путь к совершенству</h2>
+    </div>
+    <Steps steps={steps} />
+  </Section>
+
+  <!-- PORTFOLIO -->
+  <Section id="portfolio">
+    <div class="mb-16 reveal-up">
+      <span class="text-accent text-xs font-bold tracking-[0.2em] uppercase block mb-4">Проекты</span>
+      <h2 class="font-serif text-4xl md:text-5xl text-white">Реализованные кухни</h2>
+    </div>
+    <PortfolioGrid items={portfolioItems.slice(0, 4)} />
+  </Section>
+
+  <!-- FAQ -->
+  <Section background="surface-2">
+    <div class="mb-16 reveal-up">
+      <span class="text-accent text-xs font-bold tracking-[0.2em] uppercase block mb-4">FAQ</span>
+      <h2 class="font-serif text-4xl md:text-5xl text-white">Ответы на вопросы</h2>
+    </div>
+    <FAQ showHeader={false} />
+  </Section>
+
+</BaseLayout>

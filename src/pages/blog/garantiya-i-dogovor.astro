@@ -1,0 +1,50 @@
+﻿---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import { buildBreadcrumbSchema } from "../../lib/schema";
+
+const breadcrumbs = [
+  { name: "Главная", url: "/" },
+  { name: "Блог", url: "/blog" },
+  { name: "Договор и гарантия", url: "/blog/garantiya-i-dogovor" }
+];
+
+const schema = [buildBreadcrumbSchema(breadcrumbs)];
+---
+<BaseLayout
+  title="Договор и гарантия на мебель на заказ в Сочи"
+  description="Что проверить в договоре на мебель на заказ в Сочи: сроки, материалы, гарантия, условия монтажа."
+  canonical="/blog/garantiya-i-dogovor"
+  schema={schema}
+>
+  <section class="section-sm">
+    <div class="container">
+      <Breadcrumbs items={breadcrumbs} />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h1>Договор и гарантия на мебель на заказ в Сочи</h1>
+      <div class="blog-hero">
+        <img
+          src="/images/wardrobe-loft.jpg"
+          alt="Гардеробная на заказ"
+          loading="lazy"
+        />
+      </div>
+      <p>Договор — главный документ при заказе мебели. Он фиксирует сроки, материалы и ваши гарантии.</p>
+
+      <h2>Что должно быть в договоре</h2>
+      <p>Перечень материалов, точные размеры, сроки производства, стоимость и порядок оплаты.</p>
+
+      <h2>Гарантия</h2>
+      <p>Уточните срок гарантии на корпуса и фурнитуру, а также условия сервисного обслуживания.</p>
+
+      <h2>Монтаж и приемка</h2>
+      <p>В договоре должны быть прописаны этапы доставки, монтажа и финальной приемки.</p>
+
+      <p>Мы работаем прозрачно и фиксируем все условия в договоре. Помогаем новоселам Сочи пройти путь без рисков.</p>
+    </div>
+  </section>
+</BaseLayout>

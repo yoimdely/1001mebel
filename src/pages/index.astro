@@ -1,0 +1,441 @@
+﻿---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Button from "../components/ui/Button.astro";
+import Section from "../components/ui/Section.astro";
+import Container from "../components/ui/Container.astro";
+import PortfolioCard from "../components/PortfolioCard.astro";
+import Faq from "../components/FAQ.astro";
+import { portfolioItems } from "../data/portfolio";
+import { site } from "../data/site";
+
+const featured = portfolioItems.slice(0, 4);
+
+const signature = [
+  { value: "15+", label: "лет опыта" },
+  { value: "350+", label: "проектов" },
+  { value: "30–45", label: "дней производство" }
+];
+
+const processSteps = [
+  {
+    title: "Замер и бриф",
+    description: "Выезжаем по всему Сочи, снимаем размеры и фиксируем задачи."
+  },
+  {
+    title: "Дизайн и смета",
+    description: "Готовим 3D‑визуализацию и прозрачный расчет под ваш бюджет."
+  },
+  {
+    title: "Производство",
+    description: "Собственное производство, контроль качества и сроков."
+  },
+  {
+    title: "Монтаж",
+    description: "Аккуратная установка и финальная приемка без лишних хлопот."
+  }
+];
+
+const gallery = [
+  { src: "/images/kitchen-hero.jpg", alt: "Кухня на заказ в Сочи" },
+  { src: "/images/kitchen-intro.jpg", alt: "Современная кухня" },
+  { src: "/images/wardrobe-loft.jpg", alt: "Гардеробная в стиле лофт" },
+  { src: "/images/bathroom-marble.jpg", alt: "Мебель для ванной" }
+];
+
+const meta = {
+  title: "Мебель на заказ в Сочи — кухни, шкафы, новостройки",
+  description: "Премиальная мебель на заказ в Сочи. Кухни, гардеробные, комплексная меблировка новостроек под ключ. Работаем по всему Сочи, Адлеру и Красной Поляне."
+};
+---
+<BaseLayout {...meta}>
+  <Section class="hero" container={false}>
+    <div class="hero-bg"></div>
+    <Container>
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow">Мебель на заказ • Сочи</span>
+          <h1>Современные кухни и мебель под ключ для новостроек</h1>
+          <p>Проектируем, производим и устанавливаем мебель для квартир в новостройках и частных домов. Работаем по всему Сочи.</p>
+          <div class="hero-actions">
+            <Button href="/quiz" variant="primary">Рассчитать цену</Button>
+            <Button href="/portfolio" variant="secondary">Наши проекты</Button>
+          </div>
+          <div class="hero-metrics">
+            {signature.map((item) => (
+              <div class="metric">
+                <span class="metric-value">{item.value}</span>
+                <span class="metric-label">{item.label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div class="hero-visual">
+          <img src="/images/kitchen-hero.jpg" alt="Кухня на заказ в Сочи" loading="eager" />
+          <div class="hero-caption">
+            <span>Проектирование • Производство • Монтаж</span>
+            <span>Сочи • Адлер • Красная Поляна</span>
+          </div>
+        </div>
+      </div>
+    </Container>
+  </Section>
+
+  <Section class="signature" container={false}>
+    <Container>
+      <div class="signature-grid">
+        <div class="signature-copy">
+          <span class="eyebrow">Для новостроек</span>
+          <h2>Единый стиль, четкие сроки и контроль бюджета</h2>
+          <p>Мы специализируемся на меблировке квартир в новостройках: создаем кухни, шкафы и функциональные зоны, которые полностью соответствуют вашей планировке.</p>
+        </div>
+        <div class="signature-list">
+          <div class="signature-card">
+            <h3>Точная геометрия</h3>
+            <p>Инженерный подход и выверенные пропорции под размеры помещения.</p>
+          </div>
+          <div class="signature-card">
+            <h3>Премиальные материалы</h3>
+            <p>Фасады, столешницы и фурнитура, рассчитанные на долгий срок службы.</p>
+          </div>
+          <div class="signature-card">
+            <h3>Сервис под ключ</h3>
+            <p>Один подрядчик на весь цикл — от брифа до финального монтажа.</p>
+          </div>
+        </div>
+      </div>
+    </Container>
+  </Section>
+
+  <Section class="portfolio-section" container={false}>
+    <Container>
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">Наши проекты</span>
+          <h2>Избранные работы</h2>
+        </div>
+        <Button href="/portfolio" variant="secondary">Смотреть все</Button>
+      </div>
+      <div class="portfolio-grid">
+        {featured.map((item, index) => (
+          <PortfolioCard
+            img={item.image}
+            title={item.title}
+            tags={item.tags}
+            href="/portfolio"
+            class={`fade-in-up`}
+            style={`transition-delay: ${index * 120}ms`}
+          />
+        ))}
+      </div>
+    </Container>
+  </Section>
+
+  <Section class="gallery" container={false}>
+    <Container>
+      <div class="section-head center">
+        <span class="eyebrow">Галерея</span>
+        <h2>Все наши фактуры и решения</h2>
+        <p>Используем каждую зону пространства: кухни, гардеробные, спальни и гостиные.</p>
+      </div>
+      <div class="gallery-grid">
+        {gallery.map((item, index) => (
+          <div class="gallery-item fade-in-up" style={`transition-delay: ${index * 80}ms`}>
+            <img src={item.src} alt={item.alt} loading="lazy" />
+          </div>
+        ))}
+      </div>
+    </Container>
+  </Section>
+
+  <Section class="process" container={false}>
+    <Container>
+      <div class="section-head center">
+        <span class="eyebrow">Процесс</span>
+        <h2>Как мы работаем в Сочи</h2>
+        <p>Согласовываем этапы заранее и фиксируем сроки в договоре.</p>
+      </div>
+      <div class="process-grid">
+        {processSteps.map((step, index) => (
+          <div class="process-step fade-in-up" style={`transition-delay: ${index * 120}ms`}>
+            <div class="step-number">0{index + 1}</div>
+            <h3>{step.title}</h3>
+            <p>{step.description}</p>
+          </div>
+        ))}
+      </div>
+    </Container>
+  </Section>
+
+  <Section class="quiz-teaser" container={false}>
+    <Container>
+      <div class="quiz-teaser__grid">
+        <div>
+          <span class="eyebrow">Квиз</span>
+          <h2>Предварительный расчет за 2 минуты</h2>
+          <p>Ответьте на несколько вопросов, чтобы мы подготовили предложение для вашей новостройки.</p>
+          <div class="quiz-teaser__note">
+            Работаем по всему Сочи: {site.areas.join(" • ")}.
+          </div>
+        </div>
+        <div class="quiz-teaser__card">
+          <h3>Начать расчет</h3>
+          <p>Пошаговый квиз без лишних полей. Можно пройти с телефона.</p>
+          <Button href="/quiz" variant="primary">Рассчитать цену</Button>
+        </div>
+      </div>
+    </Container>
+  </Section>
+
+  <Faq />
+
+  <Section class="cta" container={false}>
+    <Container>
+      <div class="cta-panel">
+        <div>
+          <span class="eyebrow">Связаться</span>
+          <h2>Готовы обсудить проект?</h2>
+          <p>Позвоните или напишите нам в WhatsApp/Telegram — подготовим расчет и план работ.</p>
+        </div>
+        <div class="cta-actions">
+          <Button href="/quiz" variant="primary">Рассчитать цену</Button>
+          <Button href={site.telegramChannel} variant="secondary">Telegram‑канал</Button>
+        </div>
+      </div>
+    </Container>
+  </Section>
+</BaseLayout>
+
+<style>
+  .hero {
+    position: relative;
+    padding-top: var(--space-12);
+    padding-bottom: var(--space-12);
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(500px 300px at 20% 20%, rgba(214, 179, 106, 0.18), transparent 60%);
+    pointer-events: none;
+  }
+  .hero-grid {
+    display: grid;
+    gap: var(--space-10);
+    align-items: center;
+  }
+  @media (min-width: 1024px) {
+    .hero-grid {
+      grid-template-columns: 1.1fr 0.9fr;
+    }
+  }
+  .hero-copy h1 {
+    margin: var(--space-5) 0 var(--space-6);
+  }
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+    margin-top: var(--space-6);
+  }
+  .hero-metrics {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: var(--space-6);
+    margin-top: var(--space-8);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--border);
+  }
+  .metric-value {
+    font-size: 2rem;
+    color: var(--accent-strong);
+  }
+  .metric-label {
+    font-size: var(--font-size-small);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .hero-visual {
+    position: relative;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1px solid rgba(214, 179, 106, 0.35);
+    box-shadow: var(--shadow-gold);
+    max-width: 100%;
+  }
+  .hero-visual img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    aspect-ratio: 4 / 5;
+  }
+  .hero-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: var(--space-5);
+    background: linear-gradient(to top, rgba(11, 11, 10, 0.9), transparent);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    font-size: var(--font-size-small);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text);
+  }
+
+  .signature-grid {
+    display: grid;
+    gap: var(--space-10);
+    align-items: start;
+  }
+  @media (min-width: 1024px) {
+    .signature-grid {
+      grid-template-columns: 1.1fr 1fr;
+    }
+  }
+  .signature-list {
+    display: grid;
+    gap: var(--space-5);
+  }
+  .signature-card {
+    padding: var(--space-6);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border);
+    background: var(--surface);
+  }
+  .signature-card h3 {
+    margin-bottom: var(--space-3);
+    font-size: 1.4rem;
+  }
+
+  .section-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: var(--space-6);
+    margin-bottom: var(--space-8);
+    flex-wrap: wrap;
+  }
+  .section-head.center {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .section-head.center p {
+    margin-bottom: 0;
+  }
+
+  .portfolio-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-7);
+  }
+  @media (min-width: 768px) {
+    .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (min-width: 1200px) {
+    .portfolio-grid { grid-template-columns: repeat(4, 1fr); }
+  }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: var(--space-4);
+  }
+  .gallery-item {
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    border: 1px solid rgba(214, 179, 106, 0.18);
+    background: var(--surface);
+    transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+  }
+  .gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    aspect-ratio: 4 / 5;
+    transition: transform 0.6s var(--transition);
+  }
+  .gallery-item:hover {
+    transform: translateY(-4px);
+    border-color: rgba(214, 179, 106, 0.5);
+    box-shadow: var(--shadow-gold);
+  }
+  .gallery-item:hover img {
+    transform: scale(1.04);
+  }
+
+  .process-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+  @media (min-width: 768px) {
+    .process-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (min-width: 1200px) {
+    .process-grid { grid-template-columns: repeat(4, 1fr); }
+  }
+  .process-step {
+    padding: var(--space-7);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border);
+    background: var(--surface-2);
+  }
+  .step-number {
+    font-size: 1.5rem;
+    color: var(--accent);
+    margin-bottom: var(--space-5);
+  }
+  .process-step h3 {
+    margin-bottom: var(--space-3);
+  }
+  .process-step p { margin-bottom: 0; }
+
+  .quiz-teaser__grid {
+    display: grid;
+    gap: var(--space-10);
+    align-items: center;
+  }
+  @media (min-width: 900px) {
+    .quiz-teaser__grid { grid-template-columns: 1.1fr 0.9fr; }
+  }
+  .quiz-teaser__note {
+    margin-top: var(--space-6);
+    font-size: var(--font-size-small);
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .quiz-teaser__card {
+    border: 1px solid rgba(214, 179, 106, 0.3);
+    border-radius: var(--radius-lg);
+    padding: var(--space-8);
+    background: rgba(18, 17, 16, 0.85);
+    display: grid;
+    gap: var(--space-4);
+    justify-items: start;
+  }
+  .quiz-teaser__card h3 {
+    font-size: 1.6rem;
+  }
+  .quiz-teaser__grid p {
+    margin-top: var(--space-4);
+  }
+
+  .cta-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+  }
+
+  @media (max-width: 768px) {
+    .hero {
+      padding-top: var(--space-10);
+    }
+    .hero-caption { letter-spacing: 0.12em; }
+    .quiz-form { padding: var(--space-6); }
+  }
+</style>

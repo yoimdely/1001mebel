@@ -1,0 +1,50 @@
+﻿---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import { buildBreadcrumbSchema } from "../../lib/schema";
+
+const breadcrumbs = [
+  { name: "Главная", url: "/" },
+  { name: "Блог", url: "/blog" },
+  { name: "Эргономика кухни", url: "/blog/ergonomika-kuhni" }
+];
+
+const schema = [buildBreadcrumbSchema(breadcrumbs)];
+---
+<BaseLayout
+  title="Эргономика кухни в новостройке: рабочий треугольник и размеры"
+  description="Как сделать кухню удобной: рабочий треугольник, расстояния и высота столешницы. Советы для новостроек в Сочи."
+  canonical="/blog/ergonomika-kuhni"
+  schema={schema}
+>
+  <section class="section-sm">
+    <div class="container">
+      <Breadcrumbs items={breadcrumbs} />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h1>Эргономика кухни в новостройке: рабочий треугольник и размеры</h1>
+      <div class="blog-hero">
+        <img
+          src="/images/dining-table.jpg"
+          alt="Эргономичная кухня"
+          loading="lazy"
+        />
+      </div>
+      <p>Эргономика кухни определяет комфорт ежедневных сценариев. Правильные расстояния и высоты экономят время и силы.</p>
+
+      <h2>Рабочий треугольник</h2>
+      <p>Раковина, плита и холодильник должны находиться на удобных расстояниях. Это ускоряет готовку и снижает нагрузку.</p>
+
+      <h2>Высота столешницы</h2>
+      <p>Оптимальная высота — 85–92 см, но лучше рассчитывать индивидуально под рост пользователей.</p>
+
+      <h2>Зоны хранения</h2>
+      <p>Часто используемые вещи — на уровне рук. Редко используемые — выше или ниже. Для новостроек важно предусмотреть максимум хранения на старте.</p>
+
+      <p>Мы проектируем кухни на заказ в Сочи, учитывая эргономику и вашу планировку.</p>
+    </div>
+  </section>
+</BaseLayout>

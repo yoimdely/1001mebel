@@ -1,0 +1,88 @@
+﻿---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Section from "../components/ui/Section.astro";
+import Hero from "../components/ui/Hero.astro";
+import Grid from "../components/ui/Grid.astro";
+import Button from "../components/ui/Button.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import CTAFormShort from "../components/CTAFormShort.astro";
+import ImageMosaic from "../components/ImageMosaic.astro";
+import PriceCalculator from "../components/PriceCalculator.astro";
+import { galleryPricing } from "../data/gallery";
+import { buildBreadcrumbSchema } from "../lib/schema";
+
+const breadcrumbs = [
+  { name: "Главная", url: "/" },
+  { name: "Цены", url: "/tseny" }
+];
+
+const schema = [buildBreadcrumbSchema(breadcrumbs)];
+---
+<BaseLayout
+  title="Цены и расчет"
+  description="Узнайте ориентировочную стоимость кухни и мебели на заказ в Сочи. Прозрачная смета и варианты под бюджет."
+  canonical="/tseny"
+  schema={schema}
+>
+
+  <!-- HERO (SIMPLE) -->
+  <Section padding="default">
+    <div class="max-w-4xl reveal-up">
+       <span class="text-accent text-xs font-bold tracking-[0.2em] uppercase block mb-6">Стоимость и расчет</span>
+       <h1 class="font-serif text-5xl md:text-7xl text-white mb-8">Цены и <span class="italic text-accent">варианты</span></h1>
+       <p class="text-2xl text-white/60 font-serif max-w-2xl leading-relaxed">
+          Мы предлагаем прозрачную систему ценообразования. Три уровня комплектации позволяют создать идеальную мебель под ваш бюджет без потери в качестве.
+       </p>
+    </div>
+  </Section>
+
+  <!-- BREADCRUMBS -->
+  <Section padding="none" class="relative z-20 -mt-10 mb-10">
+    <Breadcrumbs items={breadcrumbs} />
+  </Section>
+
+  <!-- PRICING TIERS -->
+  <Section background="surface">
+     <Grid columns={3} gap="large">
+        {[
+          { t: 'Базовый', p: 'от 180 000 ₽', d: 'Надежные решения для функциональной кухни. Качественные фасады и проверенная фурнитура.' },
+          { t: 'Комфорт', p: 'от 260 000 ₽', d: 'Улучшенная эргономика, системы плавного закрытия и расширенный выбор декоров.' },
+          { t: 'Премиум', p: 'от 380 000 ₽', d: 'Эксклюзивные материалы (эмаль, шпон), дизайнерская фурнитура и полная комплектация.' }
+        ].map((tier, i) => (
+          <article class="group bg-surface-2 p-8 md:p-12 border border-white/5 hover:border-accent/30 transition-all duration-300 rounded-sm reveal-up cursor-default">
+            <div class="text-accent text-xs font-bold uppercase tracking-[0.2em] mb-6">Вариант 0{i+1}</div>
+            <h3 class="text-2xl text-white mb-6 font-serif">{tier.t}</h3>
+            <div class="text-3xl md:text-4xl text-white font-serif mb-6">{tier.p}</div>
+            <p class="text-muted leading-relaxed text-sm mb-8">{tier.d}</p>
+            <Button href="#calc" variant="ghost" class="w-full">Рассчитать</Button>
+          </article>
+        ))}
+     </Grid>
+  </Section>
+
+  <!-- DETAILS -->
+  <ImageMosaic
+    title="Детали и материалы"
+    text="Точная стоимость зависит от выбора фасадов, сложности механизмов и габаритов изделия. Мы подготовим 3 варианта сметы под ваши задачи."
+    images={galleryPricing}
+  />
+
+  <!-- CALCULATOR -->
+  <Section id="calc">
+     <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-start">
+       <div class="reveal-up">
+         <PriceCalculator title="Рассчитать стоимость" />
+       </div>
+       
+       <div class="reveal-up delay-200 lg:sticky lg:top-32">
+         <span class="text-accent text-xs font-bold tracking-[0.2em] uppercase block mb-6">Консультация</span>
+         <h2 class="font-serif text-3xl md:text-5xl text-white mb-6">Нужна точная смета?</h2>
+         <p class="text-lg text-muted mb-10">
+           Оставьте заявку на замер. Наш дизайнер учтет все нюансы вашей планировки и подготовит детальный расчет с вариантами материалов.
+         </p>
+         <Button href="/kontakty">Вызвать дизайнера</Button>
+       </div>
+     </div>
+  </Section>
+
+</BaseLayout>

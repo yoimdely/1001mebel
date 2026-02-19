@@ -1,0 +1,114 @@
+﻿---
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { site } from "../data/site";
+import { baseSchemas } from "../lib/schema";
+
+const {
+  title,
+  description,
+  canonical,
+  ogImage = "/images/kitchen-hero.jpg",
+  noindex = false,
+  schema = []
+} = Astro.props;
+
+const pageTitle = title ? `${title} | ${site.name}` : `${site.name} — ${site.tagline}`;
+const pageDescription =
+  description ||
+  "Мебель и кухни на заказ в Сочи. Проектирование, производство и монтаж под ключ для новостроек. Работаем по всему Сочи, Адлеру и Красной Поляне.";
+
+const canonicalUrl = canonical
+  ? new URL(canonical, site.url).toString().replace(/\/$/, "")
+  : site.url.replace(/\/$/, "");
+
+const robots = noindex ? "noindex, nofollow" : "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1";
+const schemas = [...baseSchemas(), ...(Array.isArray(schema) ? schema : [schema])];
+---
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDescription} />
+    <meta name="robots" content={robots} />
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="icon" href="/images/ico.ico" type="image/x-icon" />
+    
+    <!-- Verification Meta Tags -->
+    <meta name="yandex-verification" content="3781b401c07ddb7f" />
+    <meta name="google-site-verification" content="U0U0exhdRdJXcSZDKUTLfnwbbXL7Ev31fcA_aF2tfpc" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:image" content={new URL(ogImage, site.url).toString()} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={canonicalUrl} />
+    <meta property="twitter:title" content={pageTitle} />
+    <meta property="twitter:description" content={pageDescription} />
+    <meta property="twitter:image" content={new URL(ogImage, site.url).toString()} />
+
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(schemas)} />
+    
+    <style is:global>
+      @import "../styles/global.css";
+    </style>
+  </head>
+  <body>
+    <Header />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+      main {
+        flex-grow: 1;
+        padding-top: var(--header-height);
+      }
+    </style>
+    <script is:inline>
+      // Simple Intersection Observer for scroll animations
+      document.addEventListener("DOMContentLoaded", () => {
+        const observer = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("is-visible");
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.1, rootMargin: "0px 0px -10% 0px" });
+
+        document.querySelectorAll(".fade-in-up").forEach(el => {
+          observer.observe(el);
+        });
+      });
+    </script>
+
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+      (function(m,e,t,r,i,k,a){
+        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+      })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=106880535', 'ym');
+
+      ym(106880535, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/106880535" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <!-- /Yandex.Metrika counter -->
+  </body>
+</html>

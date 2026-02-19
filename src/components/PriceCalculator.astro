@@ -1,0 +1,43 @@
+﻿---
+const { title = "Оцените стоимость за 1 минуту" } = Astro.props;
+---
+<div class="card reveal-up" style="border: 1px solid var(--border-light); padding: 48px; background: var(--bg);">
+  <span class="badge" style="margin-bottom: 24px;">Предварительный расчет</span>
+  <h3 style="margin-bottom: 32px; font-size: 24px;">{title}</h3>
+  <form class="form" data-mock-submit style="display: grid; gap: 20px;">
+    <div>
+      <label style="font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.6; margin-bottom: 8px; display: block;">Тип мебели</label>
+      <select name="type" required style="width: 100%; background: transparent; border: none; border-bottom: 1px solid var(--border-light); padding: 12px 0; color: #fff; outline: none; transition: border-color 0.3s var(--transition);">
+        <option value="" style="background: #000;">Выберите тип</option>
+        <option value="kitchen" style="background: #000;">Кухня</option>
+        <option value="wardrobe" style="background: #000;">Шкаф / гардеробная</option>
+        <option value="hallway" style="background: #000;">Прихожая</option>
+        <option value="living" style="background: #000;">Гостиная</option>
+      </select>
+    </div>
+    
+    <div>
+      <label style="font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.6; margin-bottom: 8px; display: block;">Площадь / длина</label>
+      <select name="size" required style="width: 100%; background: transparent; border: none; border-bottom: 1px solid var(--border-light); padding: 12px 0; color: #fff; outline: none; transition: border-color 0.3s var(--transition);">
+        <option value="" style="background: #000;">Выберите размер</option>
+        <option value="small" style="background: #000;">Небольшая (до 3 м)</option>
+        <option value="medium" style="background: #000;">Средняя (3–5 м)</option>
+        <option value="large" style="background: #000;">Большая (от 5 м)</option>
+      </select>
+    </div>
+
+    <div>
+      <label style="font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.6; margin-bottom: 8px; display: block;">Стиль</label>
+      <select name="style" required style="width: 100%; background: transparent; border: none; border-bottom: 1px solid var(--border-light); padding: 12px 0; color: #fff; outline: none; transition: border-color 0.3s var(--transition);">
+        <option value="" style="background: #000;">Выберите стиль</option>
+        <option value="modern" style="background: #000;">Современный</option>
+        <option value="classic" style="background: #000;">Классика</option>
+        <option value="minimal" style="background: #000;">Минимализм</option>
+      </select>
+    </div>
+
+    <button class="btn" type="submit" style="margin-top: 16px;">Получить ориентир</button>
+    <div class="form-note" data-form-note style="font-size: 12px; margin-top: 12px;"></div>
+  </form>
+  <p style="margin-top: 32px; font-size: 13px; opacity: 0.4; line-height: 1.6;">Это быстрый расчет. Окончательная стоимость формируется на основании точного замера и выбора материалов.</p>
+</div>

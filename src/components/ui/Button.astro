@@ -1,0 +1,57 @@
+---
+interface Props {
+  href?: string;
+  type?: "button" | "submit" | "reset";
+  variant?: "primary" | "secondary";
+  class?: string;
+}
+
+const { href, type = "button", variant = "primary", class: className } = Astro.props;
+const Tag = href ? "a" : "button";
+---
+<Tag class:list={["btn", `btn--${variant}`, className]} href={href} type={Tag === "button" ? type : undefined}>
+  <span><slot /></span>
+</Tag>
+<style>
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    padding: calc(var(--space-4) + 2px) var(--space-7);
+    font-family: var(--font-ui);
+    font-weight: 500;
+    font-size: 0.95rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: transform var(--transition), box-shadow var(--transition), background-color var(--transition), color var(--transition), border-color var(--transition);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .btn--primary {
+    background: linear-gradient(135deg, var(--accent-strong), var(--accent));
+    color: #0b0b0a;
+    border-color: rgba(214, 179, 106, 0.6);
+    box-shadow: 0 18px 45px rgba(214, 179, 106, 0.28);
+  }
+  .btn--primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 22px 55px rgba(214, 179, 106, 0.35);
+  }
+  .btn--secondary {
+    background-color: transparent;
+    color: var(--text);
+    border-color: rgba(214, 179, 106, 0.5);
+  }
+  .btn--secondary:hover {
+    background-color: rgba(214, 179, 106, 0.12);
+    border-color: rgba(214, 179, 106, 0.8);
+  }
+  .btn:focus-visible {
+    outline: 2px solid var(--accent-strong);
+    outline-offset: 3px;
+  }
+</style>

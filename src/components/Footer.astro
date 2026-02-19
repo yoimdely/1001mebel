@@ -1,0 +1,159 @@
+﻿---
+import Container from "./ui/Container.astro";
+import Logo from "./Logo.astro";
+import { site } from "../data/site";
+
+const links = {
+  "Карта сайта": [
+    { href: "/kuhni-na-zakaz-sochi", text: "Кухни" },
+    { href: "/shkafy-kupe-garderobnye", text: "Мебель" },
+    { href: "/portfolio", text: "Наши проекты" },
+    { href: "/o-kompanii", text: "О нас" },
+  ],
+  "Услуги": [
+    { text: "Бесплатный замер" },
+    { text: "Дизайн-проект" },
+    { text: "Изготовление" },
+    { text: "Доставка и монтаж" },
+  ],
+  "Контакты": [
+    { text: site.address.street },
+    { text: site.phone, href: `tel:${site.phoneLink.split(':')[1]}` },
+    { text: "WhatsApp", href: site.whatsapp },
+    { text: "Telegram", href: site.telegram },
+    { text: "Ежедневно, 9:00 – 21:00" },
+  ],
+}
+---
+<footer class="footer">
+  <Container>
+    <div class="footer__main">
+      <div class="footer__brand">
+        <a href="/" aria-label="1001 Мебель - На главную">
+          <Logo variant="full" />
+        </a>
+        <p>Премиальная мебель на заказ по всему Сочи. Проектируем кухни, шкафы и комплексную меблировку новостроек под ключ.</p>
+        <a class="footer__channel" href={site.telegramChannel} target="_blank" rel="noopener noreferrer">Наш Telegram‑канал</a>
+      </div>
+      <div class="footer__nav">
+        {Object.entries(links).map(([title, linkGroup]) => (
+          <div class="footer__links-group">
+            <h3>{title}</h3>
+            <ul>
+              {linkGroup.map(link => (
+                <li>
+                  {link.href ? <a href={link.href}>{link.text}</a> : <span>{link.text}</span>}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p>© {new Date().getFullYear()} {site.name}. Все права защищены.</p>
+      <a href="/privacy-policy">Политика конфиденциальности</a>
+    </div>
+  </Container>
+</footer>
+
+<style>
+  .footer {
+    background-color: var(--surface);
+    border-top: 1px solid var(--border);
+    padding: var(--space-12) 0 var(--space-7);
+  }
+  .footer__main {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-12);
+    padding-bottom: var(--space-12);
+  }
+  @media (min-width: 768px) {
+    .footer__main {
+      grid-template-columns: 1.5fr 2fr;
+    }
+  }
+  .footer__brand {
+    max-width: 360px;
+  }
+  .footer__brand :global(.logo) {
+    margin-bottom: var(--space-4);
+  }
+  .footer__brand p {
+    color: var(--muted);
+    font-size: var(--font-size-small);
+    line-height: 1.8;
+  }
+  .footer__channel {
+    display: inline-flex;
+    margin-top: var(--space-4);
+    padding: 6px 14px;
+    border-radius: 999px;
+    border: 1px solid rgba(214, 179, 106, 0.4);
+    color: var(--accent);
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+  .footer__channel:hover {
+    background: var(--accent);
+    color: #0b0b0a;
+  }
+  .footer__nav {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: var(--space-8);
+  }
+  .footer__links-group h3 {
+    font-family: var(--font-ui);
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-bottom: var(--space-4);
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+  }
+  .footer__links-group ul {
+    list-style: none;
+    display: grid;
+    gap: var(--space-3);
+  }
+  .footer__links-group a,
+  .footer__links-group span {
+    color: var(--muted);
+    font-size: var(--font-size-small);
+    font-family: var(--font-ui);
+  }
+  .footer__links-group a:hover {
+    color: var(--accent-strong);
+  }
+  .footer__bottom {
+    border-top: 1px solid var(--border);
+    padding-top: var(--space-8);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+    font-size: var(--font-size-small);
+    color: var(--muted);
+    font-family: var(--font-ui);
+  }
+  .footer__bottom a:hover {
+    color: var(--accent-strong);
+  }
+  @media (max-width: 600px) {
+    .footer__main {
+      text-align: center;
+    }
+    .footer__brand {
+      margin: 0 auto;
+    }
+    .footer__brand :global(.logo--full) {
+      width: min(150px, 60vw);
+      margin: 0 auto var(--space-4);
+      filter: drop-shadow(0 6px 18px rgba(0, 0, 0, 0.35)) brightness(1.1);
+    }
+  }
+</style>

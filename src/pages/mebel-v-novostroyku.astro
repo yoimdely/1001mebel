@@ -1,0 +1,138 @@
+﻿---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Section from "../components/ui/Section.astro";
+import Hero from "../components/ui/Hero.astro";
+import Grid from "../components/ui/Grid.astro";
+import Button from "../components/ui/Button.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import CTAFormShort from "../components/CTAFormShort.astro";
+import Steps from "../components/Steps.astro";
+import PortfolioGrid from "../components/PortfolioGrid.astro";
+import { portfolioItems } from "../data/portfolio";
+import { site } from "../data/site";
+import { buildBreadcrumbSchema, buildServiceSchema } from "../lib/schema";
+
+const breadcrumbs = [
+  { name: "Главная", url: "/" },
+  { name: "Мебель в новостройку под ключ", url: "/mebel-v-novostroyku" }
+];
+
+const steps = [
+  { title: "Аудит квартиры", desc: "Учитываем планировку и инженерные выводы." },
+  { title: "Зонирование", desc: "Создаем единый стиль кухни, прихожей и гостиной." },
+  { title: "Проект и смета", desc: "Делаем 3D и формируем прозрачный бюджет." },
+  { title: "Производство", desc: "Контроль качества и комплектации." },
+  { title: "Монтаж", desc: "Собираем мебель без пыли и лишних хлопот." },
+  { title: "Сдача проекта", desc: "Проверка и передача гарантийных документов." }
+];
+
+const schema = [
+  buildBreadcrumbSchema(breadcrumbs),
+  buildServiceSchema({
+    name: "Мебель в новостройку под ключ",
+    description:
+      "Комплексная меблировка новостроек в Сочи, Адлере и Красной Поляне: кухни, шкафы, гостиные и прихожие.",
+    url: "/mebel-v-novostroyku"
+  })
+];
+
+const meta = {
+  title: "Мебель в новостройку под ключ",
+  description: "Комплексная меблировка новостроек в Сочи: кухня, шкафы, прихожая и гостиная в едином стиле. Бесплатный замер и дизайн-проект.",
+  canonical: "/mebel-v-novostroyku"
+};
+---
+<BaseLayout {...meta} schema={schema}>
+
+  <!-- HERO -->
+  <Hero
+    title="Мебель под ключ для новостроек"
+    subtitle="Комплексный подход"
+    description="Создаем единую мебельную экосистему для вашей новой квартиры. Проектируем кухни, шкафы, прихожие и гостиные в общем стиле, обеспечивая безупречный интерьер с первого дня."
+    image="/images/media-zone-oak.jpg"
+    height="large"
+    overlay={true}
+  >
+    <div slot="actions" class="flex gap-4">
+      <Button href="#lead">План меблировки</Button>
+      <Button href="#portfolio" variant="secondary">Наши проекты</Button>
+    </div>
+  </Hero>
+
+  <!-- LEAD -->
+  <Section id="lead" background="surface">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center">
+      <div class="reveal-up">
+        <span class="text-accent text-xs font-bold tracking-[0.2em] uppercase block mb-4">Экосистема</span>
+        <h2 class="font-serif text-3xl md:text-5xl text-white mb-6">Единый стиль <br /> и контроль бюджета</h2>
+        <p class="text-lg text-muted mb-10">
+          Вы получите согласованный дизайн-проект всех помещений. Мы подберем материалы таким образом, чтобы создать целостный интерьер без лишних затрат и визуального шума.
+        </p>
+        
+        <div class="space-y-6">
+           {[
+             'Персональный менеджер-дизайнер',
+             'Детализированная смета по каждой зоне',
+             'Синхронизация монтажа во всех комнатах'
+           ].map(item => (
+             <div class="flex items-center gap-4">
+                <span class="w-8 h-[1px] bg-accent"></span>
+                <span class="text-white font-medium uppercase text-sm tracking-widest">{item}</span>
+             </div>
+           ))}
+        </div>
+      </div>
+      
+      <div class="bg-surface-2 p-8 md:p-12 rounded-lg border border-white/10 reveal-up">
+         <CTAFormShort title="Получить план меблировки" />
+      </div>
+    </div>
+  </Section>
+
+  <!-- PROCESS -->
+  <Section background="surface-2">
+    <div class="mb-16 reveal-up">
+      <span class="text-accent text-xs font-bold tracking-[0.2em] uppercase block mb-4">Этапы</span>
+      <h2 class="font-serif text-4xl md:text-5xl text-white">Как мы ведем проект</h2>
+    </div>
+    <Steps steps={steps} />
+  </Section>
+
+  <!-- PORTFOLIO -->
+  <Section id="portfolio">
+    <div class="mb-16 reveal-up">
+      <span class="text-accent text-xs font-bold tracking-[0.2em] uppercase block mb-4">Наши проекты</span>
+      <h2 class="font-serif text-4xl md:text-5xl text-white">Наши работы в новостройках</h2>
+    </div>
+    <PortfolioGrid items={portfolioItems.slice(0, 4)} />
+  </Section>
+
+  <!-- CTA BANNER -->
+  <Section>
+    <div class="relative overflow-hidden bg-surface-2 border border-white/5 rounded-sm p-12 md:p-24 text-center reveal-up group">
+      <div class="absolute inset-0 bg-radial-gradient opacity-0 group-hover:opacity-100 transition-opacity duration-1000 pointer-events-none"></div>
+      
+      <span class="text-accent text-xs font-bold tracking-[0.2em] uppercase block mb-6">Консультация</span>
+      <h2 class="font-serif text-3xl md:text-5xl text-white mb-8 leading-tight">
+        Готовы переехать в <br /> идеальный интерьер?
+      </h2>
+      <p class="text-lg text-muted max-w-2xl mx-auto mb-12">
+        Оставьте заявку, и мы подготовим для вас персональное предложение по комплексной меблировке вашей квартиры «под ключ».
+      </p>
+      
+      <div class="flex flex-col md:flex-row justify-center items-center gap-8">
+        <Button href="#lead">Обсудить проект</Button>
+        <a href={site.phoneLink} class="font-serif text-2xl md:text-3xl text-white hover:text-accent transition-colors">
+          {site.phone}
+        </a>
+      </div>
+    </div>
+  </Section>
+
+</BaseLayout>
+
+<style>
+  .bg-radial-gradient {
+    background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.1), transparent 70%);
+  }
+</style>

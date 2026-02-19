@@ -1,0 +1,95 @@
+﻿---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Section from "../components/ui/Section.astro";
+import Hero from "../components/ui/Hero.astro";
+import Grid from "../components/ui/Grid.astro";
+import Button from "../components/ui/Button.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import CTAFormShort from "../components/CTAFormShort.astro";
+import PortfolioGrid from "../components/PortfolioGrid.astro";
+import { portfolioItems } from "../data/portfolio";
+import { buildBreadcrumbSchema, buildServiceSchema } from "../lib/schema";
+
+const breadcrumbs = [
+  { name: "Главная", url: "/" },
+  { name: "Спальни", url: "/spalni" }
+];
+
+const schema = [
+  buildBreadcrumbSchema(breadcrumbs),
+  buildServiceSchema({
+    name: "Спальни на заказ в Сочи",
+    description: "Проектирование и изготовление спален на заказ в Сочи, Адлере и Красной Поляне.",
+    url: "/spalni"
+  })
+];
+
+const features = [
+  'Кровати и тумбы в едином дизайне',
+  'Встроенные бесшумные гардеробы',
+  'Приглушенная подсветка с датчиками'
+];
+
+const meta = {
+  title: "Спальни на заказ в Сочи",
+  description: "Мебель для спальни на заказ в Сочи ⭐ Кровати, комоды, прикроватные тумбы по индивидуальным размерам ✓ Премиальные материалы ✓ Бесплатный замер и дизайн-проект ✓ 15 лет опыта ✓ Гарантия качества.",
+  canonical: "/spalni"
+};
+---
+<BaseLayout {...meta} schema={schema}>
+
+  <!-- HERO -->
+  <Hero
+    title="Спальни как личное убежище"
+    subtitle="Атмосфера покоя"
+    description="Мы создаем идеальный фон для вашего отдыха. Кровати, прикроватные системы и встроенные шкафы, в которых каждая деталь заботится о вашем комфорте и тишине."
+    image="/images/bedroom-zone.jpg"
+    height="large"
+    overlay={true}
+  >
+    <div slot="actions" class="flex gap-4">
+      <Button href="#lead">Обсудить ваш проект</Button>
+    </div>
+  </Hero>
+
+  <!-- BREADCRUMBS -->
+  <Section padding="none" class="pt-8 relative z-20">
+    <Breadcrumbs items={breadcrumbs} />
+  </Section>
+
+  <!-- LEAD -->
+  <Section id="lead" background="surface">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center">
+      <div class="reveal-up">
+        <span class="text-accent text-xs font-bold tracking-[0.2em] uppercase block mb-4">Эргономика</span>
+        <h2 class="font-serif text-3xl md:text-5xl text-white mb-6">Спокойный дизайн <br /> и функциональность</h2>
+        <p class="text-lg text-muted mb-10">
+          Мы подбираем текстуры и цвета, которые создают гармоничный фон для вашего сна. Умные системы хранения позволяют спрятать всё лишнее, оставляя пространство чистым.
+        </p>
+        
+        <div class="space-y-6">
+           {features.map(item => (
+             <div class="flex items-center gap-4">
+                <span class="w-8 h-[1px] bg-accent"></span>
+                <span class="text-white font-medium uppercase text-sm tracking-widest">{item}</span>
+             </div>
+           ))}
+        </div>
+      </div>
+      
+      <div class="bg-surface-2 p-8 md:p-12 rounded-lg border border-white/10 reveal-up">
+         <CTAFormShort title="Заказать проект спальни" />
+      </div>
+    </div>
+  </Section>
+
+  <!-- PORTFOLIO -->
+  <Section id="portfolio">
+    <div class="mb-16 reveal-up">
+      <span class="text-accent text-xs font-bold tracking-[0.2em] uppercase block mb-4">Наши проекты</span>
+      <h2 class="font-serif text-4xl md:text-5xl text-white">Реализованные проекты</h2>
+    </div>
+    <PortfolioGrid items={portfolioItems.slice(0, 3)} />
+  </Section>
+
+</BaseLayout>

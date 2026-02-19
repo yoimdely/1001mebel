@@ -1,0 +1,50 @@
+﻿---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import { buildBreadcrumbSchema } from "../../lib/schema";
+
+const breadcrumbs = [
+  { name: "Главная", url: "/" },
+  { name: "Блог", url: "/blog" },
+  { name: "Материалы фасадов", url: "/blog/materialy-fasadov" }
+];
+
+const schema = [buildBreadcrumbSchema(breadcrumbs)];
+---
+<BaseLayout
+  title="Материалы фасадов кухонь и шкафов: эмаль, шпон, пластик"
+  description="Плюсы и минусы материалов фасадов мебели на заказ: эмаль, шпон, пластик, ЛДСП. Выбор для новостройки в Сочи."
+  canonical="/blog/materialy-fasadov"
+  schema={schema}
+>
+  <section class="section-sm">
+    <div class="container">
+      <Breadcrumbs items={breadcrumbs} />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h1>Материалы фасадов кухонь и шкафов: эмаль, шпон, пластик</h1>
+      <div class="blog-hero">
+        <img
+          src="/images/kitchen-neoclassic.jpg"
+          alt="Материалы фасадов мебели"
+          loading="lazy"
+        />
+      </div>
+      <p>Выбор фасадов — ключевой этап в проекте мебели на заказ. Ниже — кратко о самых популярных материалах и их особенностях.</p>
+
+      <h2>Эмаль</h2>
+      <p>Гладкая поверхность, богатая палитра, премиальный вид. Требует аккуратного ухода.</p>
+
+      <h2>Шпон</h2>
+      <p>Натуральная фактура дерева, теплый вид и тактильность. Отлично подходит для новостроек в современном стиле.</p>
+
+      <h2>Пластик и ЛДСП</h2>
+      <p>Практичные варианты с хорошей износостойкостью. Оптимальны, если нужен баланс цены и долговечности.</p>
+
+      <p>Мы подбираем материалы с учетом бюджета и сценариев использования. Работаем по всему Сочи.</p>
+    </div>
+  </section>
+</BaseLayout>

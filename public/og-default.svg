@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b0b0b"/>
+      <stop offset="1" stop-color="#141414"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0" stop-color="#d4af37"/>
+      <stop offset="1" stop-color="#a9802a"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <circle cx="1020" cy="120" r="220" fill="url(#accent)" opacity="0.2"/>
+  <circle cx="160" cy="520" r="240" fill="#ffffff" opacity="0.05"/>
+  <rect x="120" y="140" width="960" height="350" rx="40" fill="#111111" stroke="#1f1f1f"/>
+  <text x="170" y="260" font-family="Prata, serif" font-size="72" fill="#f7f2e8">1001 Мебель</text>
+  <text x="170" y="330" font-family="Manrope, sans-serif" font-size="36" fill="#d4af37">Кухни и мебель на заказ в Сочи</text>
+  <text x="170" y="395" font-family="Manrope, sans-serif" font-size="28" fill="#b7ad9e">Бесплатный замер • Дизайн-проект • Гарантия</text>
+</svg>

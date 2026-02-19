@@ -1,0 +1,4 @@
+﻿User-agent: *
+Allow: /
+
+Sitemap: https://1001mebel-sochi.ru/sitemap-index.xml

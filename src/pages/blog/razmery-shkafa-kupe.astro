@@ -1,0 +1,50 @@
+﻿---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import { buildBreadcrumbSchema } from "../../lib/schema";
+
+const breadcrumbs = [
+  { name: "Главная", url: "/" },
+  { name: "Блог", url: "/blog" },
+  { name: "Размеры шкафа‑купе", url: "/blog/razmery-shkafa-kupe" }
+];
+
+const schema = [buildBreadcrumbSchema(breadcrumbs)];
+---
+<BaseLayout
+  title="Размеры шкафа‑купе для новостройки: глубина, высота, наполнение"
+  description="Как выбрать размеры шкафа‑купе в новостройке: глубина, высота, наполнение и зонирование хранения. Советы для Сочи."
+  canonical="/blog/razmery-shkafa-kupe"
+  schema={schema}
+>
+  <section class="section-sm">
+    <div class="container">
+      <Breadcrumbs items={breadcrumbs} />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h1>Размеры шкафа‑купе для новостройки: глубина, высота, наполнение</h1>
+      <div class="blog-hero">
+        <img
+          src="/images/wardrobe-sliding.jpg"
+          alt="Шкаф‑купе на заказ в Сочи"
+          loading="lazy"
+        />
+      </div>
+      <p>Шкаф‑купе — ключевая система хранения для новостройки. Правильные размеры делают его удобным и вместительным.</p>
+
+      <h2>Оптимальная глубина</h2>
+      <p>Для плечиков нужна глубина 60–65 см. Если пространство ограничено, можно использовать выдвижные штанги.</p>
+
+      <h2>Высота и деление секций</h2>
+      <p>Высота до потолка увеличивает полезный объем. Делим шкаф на секции под верхнюю одежду, повседневные вещи и аксессуары.</p>
+
+      <h2>Наполнение</h2>
+      <p>Ящики, корзины, брючницы и подсветка делают хранение удобнее. Для новостроек часто важна тихая фурнитура с доводчиками.</p>
+
+      <p>Мы проектируем шкафы‑купе на заказ в Сочи и подбираем размеры под вашу планировку.</p>
+    </div>
+  </section>
+</BaseLayout>

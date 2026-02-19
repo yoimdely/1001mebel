@@ -1,0 +1,105 @@
+﻿---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Section from "../components/ui/Section.astro";
+import Hero from "../components/ui/Hero.astro";
+import Grid from "../components/ui/Grid.astro";
+import Button from "../components/ui/Button.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import CTAFormShort from "../components/CTAFormShort.astro";
+import { buildBreadcrumbSchema, buildServiceSchema } from "../lib/schema";
+
+const breadcrumbs = [
+  { name: "Главная", url: "/" },
+  { name: "Шкафы-купе и гардеробные", url: "/shkafy-kupe-garderobnye" }
+];
+
+const schema = [
+  buildBreadcrumbSchema(breadcrumbs),
+  buildServiceSchema({
+    name: "Шкафы-купе и гардеробные в Сочи",
+    description: "Проектирование и изготовление шкафов-купе и гардеробных под размеры в Сочи, Адлере и Красной Поляне.",
+    url: "/shkafy-kupe-garderobnye"
+  })
+];
+
+const meta = {
+  title: "Шкафы-купе и гардеробные на заказ в Сочи",
+  description: "Производство шкафов-купе и гардеробных систем на заказ в Сочи ⭐ Индивидуальный дизайн, премиальные материалы ✓ Бесплатный замер и проект ✓ 15 лет опыта ✓ Гарантия качества. Работаем в Сочи, Адлере, Красной Поляне.",
+  canonical: "/shkafy-kupe-garderobnye"
+};
+---
+<BaseLayout {...meta} schema={schema}>
+
+  <!-- HERO -->
+  <Hero
+    title="Шкафы и гардеробные"
+    subtitle="Порядок и эстетика"
+    description="Мы создаем системы хранения, которые становятся частью архитектуры вашего дома. От скрытых систем в нишах до роскошных гардеробных комнат с интегрированным светом."
+    image="/images/wardrobe-sliding.jpg"
+    height="large"
+    overlay={true}
+  >
+    <div slot="actions" class="flex gap-4">
+      <Button href="#lead">Обсудить проект</Button>
+      <Button href="/portfolio" variant="secondary">Наши проекты</Button>
+    </div>
+  </Hero>
+
+  <!-- BREADCRUMBS -->
+  <Section padding="none" class="pt-8 relative z-20">
+    <Breadcrumbs items={breadcrumbs} />
+  </Section>
+
+  <!-- LEAD / CONCEPT -->
+  <Section id="lead" background="surface">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center">
+      <div class="reveal-up">
+        <span class="text-accent text-xs font-bold tracking-[0.2em] uppercase block mb-4">Концепция</span>
+        <h2 class="font-serif text-3xl md:text-5xl text-white mb-6">Хранение под <br /> ваши привычки</h2>
+        <p class="text-lg text-muted mb-10">
+          Каждая полка и каждый механизм проектируются с учетом вашего гардероба. Мы оптимизируем пространство так, чтобы поиск вещей превратился в удовольствие.
+        </p>
+        
+        <div class="space-y-6">
+           {[
+             'Встроенная LED-подсветка с датчиками',
+             'Плавные направляющие скрытого монтажа',
+             'Разнообразие фактур: от кожи до текстиля'
+           ].map(item => (
+             <div class="flex items-center gap-4">
+                <span class="w-8 h-[1px] bg-accent"></span>
+                <span class="text-white font-medium uppercase text-sm tracking-widest">{item}</span>
+             </div>
+           ))}
+        </div>
+      </div>
+      
+      <div class="bg-surface-2 p-8 md:p-12 rounded-lg border border-white/10 reveal-up">
+         <CTAFormShort title="Заказать проект хранения" />
+      </div>
+    </div>
+  </Section>
+
+  <!-- VARIANTS -->
+  <Section>
+    <div class="max-w-3xl mb-16 reveal-up">
+      <span class="text-accent text-xs font-bold tracking-[0.2em] uppercase block mb-4">Варианты</span>
+      <h2 class="font-serif text-4xl md:text-5xl text-white">Типовые и кастомные решения</h2>
+    </div>
+    
+    <Grid columns={3} gap="medium">
+      {[
+        { t: 'Встроенные шкафы', d: 'Слияние с интерьером. Максимальный объем хранения при минимальном визуальном шуме.' },
+        { t: 'Гардеробные комнаты', d: 'Ваше персональное пространство. Продуманная эргономика и премиальные материалы.' },
+        { t: 'Раздвижные двери', d: 'Технологии комфорта. Инновационные системы открывания и широкий выбор отделок.' }
+      ].map((item, i) => (
+        <article class="group relative p-8 border border-white/10 bg-surface-2 rounded-sm hover:-translate-y-2 transition-all duration-500 reveal-up">
+          <div class="text-accent text-xs font-bold tracking-widest mb-6 opacity-50 group-hover:opacity-100 transition-opacity">STYLE-0{i+1}</div>
+          <h3 class="font-serif text-2xl text-white mb-4">{item.t}</h3>
+          <p class="text-muted leading-relaxed text-sm">{item.d}</p>
+        </article>
+      ))}
+    </Grid>
+  </Section>
+
+</BaseLayout>

@@ -1,0 +1,58 @@
+﻿---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Section from "../../components/ui/Section.astro";
+import Grid from "../../components/ui/Grid.astro";
+import Button from "../../components/ui/Button.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import { blogPosts } from "../../data/blog";
+import { buildBreadcrumbSchema } from "../../lib/schema";
+
+const breadcrumbs = [
+  { name: "Главная", url: "/" },
+  { name: "Блог", url: "/blog" }
+];
+
+const schema = [buildBreadcrumbSchema(breadcrumbs)];
+
+const meta = {
+  title: "Блог о мебели на заказ в Сочи",
+  description: "SEO‑статьи о кухнях, шкафах и меблировке новостроек в Сочи. Материалы, цены, сроки и планирование проекта.",
+  canonical: "/blog"
+};
+---
+<BaseLayout {...meta} schema={schema}>
+  <Section class="section-sm">
+    <span class="eyebrow">Блог</span>
+    <h1>Советы по мебели на заказ в Сочи</h1>
+    <p>Пишем о кухнях, шкафах и меблировке новостроек: цены, материалы, сроки и реальные сценарии.</p>
+  </Section>
+
+  <Section class="section-sm">
+    <Breadcrumbs items={breadcrumbs} />
+  </Section>
+
+  <Section>
+    <Grid columns={2} gap="large">
+      {blogPosts.map((post) => (
+        <article class="group">
+          <a href={`/blog/${post.slug}`} class="block aspect-video overflow-hidden rounded-sm mb-8 relative">
+            <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500 z-10"></div>
+            <img 
+              src={post.image} 
+              alt={post.title} 
+              loading="lazy" 
+              class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+            />
+          </a>
+          <div class="max-w-xl">
+            <h3 class="font-serif text-3xl text-white mb-4 group-hover:text-accent transition-colors">
+              <a href={`/blog/${post.slug}`}>{post.title}</a>
+            </h3>
+            <p class="text-muted leading-relaxed mb-8 line-clamp-3">{post.description}</p>
+            <Button href={`/blog/${post.slug}`} variant="secondary">Читать статью</Button>
+          </div>
+        </article>
+      ))}
+    </Grid>
+  </Section>
+</BaseLayout>

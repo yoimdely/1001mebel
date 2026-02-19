@@ -1,0 +1,96 @@
+﻿---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Section from "../components/ui/Section.astro";
+import Hero from "../components/ui/Hero.astro";
+import Grid from "../components/ui/Grid.astro";
+import Button from "../components/ui/Button.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import CTAFormShort from "../components/CTAFormShort.astro";
+import PortfolioGrid from "../components/PortfolioGrid.astro";
+import { portfolioItems } from "../data/portfolio";
+import { buildBreadcrumbSchema, buildServiceSchema } from "../lib/schema";
+
+const breadcrumbs = [
+  { name: "Главная", url: "/" },
+  { name: "Прихожие", url: "/prihozhie" }
+];
+
+const schema = [
+  buildBreadcrumbSchema(breadcrumbs),
+  buildServiceSchema({
+    name: "Прихожие на заказ в Сочи",
+    description:
+      "Проектирование и изготовление прихожих на заказ в Сочи, Адлере и Красной Поляне.",
+    url: "/prihozhie"
+  })
+];
+
+const features = [
+  'Скрытые секции для аксессуаров',
+  'Интегрированные зеркала в пол',
+  'Износостойкие фасады и фурнитура'
+];
+
+const meta = {
+  title: "Прихожие на заказ в Сочи",
+  description: "Мебель для прихожей на заказ в Сочи ⭐ Шкафы, обувницы, вешалки по индивидуальным размерам ✓ Современный дизайн ✓ Бесплатный замер и проект ✓ 15 лет опыта ✓ Собственное производство.",
+  canonical: "/prihozhie"
+};
+---
+<BaseLayout {...meta} schema={schema}>
+
+  <!-- HERO -->
+  <Hero
+    title="Прихожие: первый акцент дома"
+    subtitle="Входная группа"
+    description="Первое впечатление начинается здесь. Продуманные системы хранения для верхней одежды и обуви, которые сохраняют идеальный порядок и подчеркивают ваш вкус."
+    image="/images/wardrobe-sliding-2.jpg"
+    height="large"
+    overlay={true}
+  >
+    <div slot="actions" class="flex gap-4">
+      <Button href="#lead">Начать планирование</Button>
+    </div>
+  </Hero>
+
+  <!-- BREADCRUMBS -->
+  <Section padding="none" class="pt-8 relative z-20">
+    <Breadcrumbs items={breadcrumbs} />
+  </Section>
+
+  <!-- LEAD -->
+  <Section id="lead" background="surface">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center">
+      <div class="reveal-up">
+        <span class="text-accent text-xs font-bold tracking-[0.2em] uppercase block mb-4">Функциональность</span>
+        <h2 class="font-serif text-3xl md:text-5xl text-white mb-6">Идеальный порядок <br /> с порога</h2>
+        <p class="text-lg text-muted mb-10">
+          Мы превращаем узкие коридоры и нестандартные входные зоны в эффективные системы хранения. Зеркала, подсветка и скрытые ниши — всё для вашего удобства.
+        </p>
+        
+        <div class="space-y-6">
+           {features.map(item => (
+             <div class="flex items-center gap-4">
+                <span class="w-8 h-[1px] bg-accent"></span>
+                <span class="text-white font-medium uppercase text-sm tracking-widest">{item}</span>
+             </div>
+           ))}
+        </div>
+      </div>
+      
+      <div class="bg-surface-2 p-8 md:p-12 rounded-lg border border-white/10 reveal-up">
+         <CTAFormShort title="Заказать проект прихожей" />
+      </div>
+    </div>
+  </Section>
+
+  <!-- PORTFOLIO -->
+  <Section id="portfolio">
+    <div class="mb-16 reveal-up">
+      <span class="text-accent text-xs font-bold tracking-[0.2em] uppercase block mb-4">Наши проекты</span>
+      <h2 class="font-serif text-4xl md:text-5xl text-white">Реализованные проекты</h2>
+    </div>
+    <PortfolioGrid items={portfolioItems.slice(0, 3)} />
+  </Section>
+
+</BaseLayout>

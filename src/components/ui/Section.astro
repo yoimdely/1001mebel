@@ -1,0 +1,40 @@
+---
+import Container from "./Container.astro";
+
+interface Props {
+  class?: string;
+  padding?: "none" | "sm" | "default";
+  background?: "surface" | "surface-2" | "bg" | "none";
+  container?: boolean;
+}
+
+const {
+  class: className,
+  padding = "default",
+  background = "none",
+  container = true,
+  ...rest
+} = Astro.props;
+
+const paddingClass =
+  padding === "none" ? "section--none" : padding === "sm" ? "section-sm" : "";
+
+const backgroundClass =
+  background === "surface"
+    ? "bg-surface"
+    : background === "surface-2"
+      ? "bg-surface-2"
+      : background === "bg"
+        ? "bg-bg"
+        : "";
+---
+<section {...rest} class:list={["section", paddingClass, backgroundClass, className]}>
+  {container ? (
+    <Container>
+      <slot />
+    </Container>
+  ) : (
+    <slot />
+  )}
+</section>
+

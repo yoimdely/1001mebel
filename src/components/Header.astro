@@ -1,0 +1,378 @@
+﻿---
+import Container from './ui/Container.astro';
+import Logo from './Logo.astro';
+import Button from './ui/Button.astro';
+import { site } from "../data/site";
+
+const navItems = site.nav;
+const currentPath = Astro.url.pathname;
+---
+
+<header id="main-header" class="header">
+  <Container>
+    <div class="header__inner">
+      <a href="/" class="header__logo" aria-label="1001 Мебель - На главную">
+        <Logo variant="mark" class="logo-desktop" />
+        <Logo variant="full" class="logo-mobile" />
+      </a>
+      
+      <nav class="header__nav" aria-label="Основная навигация">
+        <ul>
+          {navItems.map(link => (
+            <li>
+              <a 
+                href={link.href}
+                class:list={{ active: currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href)) }}
+              >
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+
+      <div class="header__actions">
+        <div class="header__contact">
+          <a href={site.phoneLink} class="header__phone">{site.phone}</a>
+        </div>
+        <a href={site.telegramChannel} class="header__channel" target="_blank" rel="noopener noreferrer">TG канал</a>
+        <Button href="/quiz" variant="primary" class="header__cta">Рассчитать цену</Button>
+        <button class="header__toggle" type="button" aria-expanded="false" aria-controls="mobile-nav" data-nav-toggle>
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </Container>
+
+  <div class="mobile-nav__backdrop" data-nav-backdrop></div>
+  <div id="mobile-nav" class="mobile-nav" data-nav-panel>
+    <div class="mobile-nav__header">
+      <Logo variant="square" />
+      <button class="mobile-nav__close" type="button" aria-label="Закрыть меню" data-nav-toggle>Закрыть</button>
+    </div>
+    <nav class="mobile-nav__menu" aria-label="Мобильная навигация">
+      <ul>
+        {navItems.map(link => (
+          <li>
+            <a href={link.href}>{link.label}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+    <div class="mobile-nav__contact">
+      <a href={site.phoneLink} class="mobile-nav__phone">{site.phone}</a>
+      <div class="mobile-nav__messengers">
+        <a href={site.whatsapp} target="_blank" rel="noopener noreferrer">WhatsApp</a>
+        <a href={site.telegram} target="_blank" rel="noopener noreferrer">Telegram</a>
+      </div>
+      <a href={site.telegramChannel} class="mobile-nav__channel" target="_blank" rel="noopener noreferrer">Telegram‑канал</a>
+      <Button href="/quiz" variant="primary" class="mobile-nav__cta">Рассчитать цену</Button>
+    </div>
+  </div>
+</header>
+
+<style>
+  .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    padding: var(--space-3) 0;
+    min-height: var(--header-height);
+    color: var(--text);
+    background: linear-gradient(180deg, rgba(11, 11, 10, 0.9), rgba(11, 11, 10, 0.2) 60%, rgba(11, 11, 10, 0));
+    transition: background-color var(--transition), box-shadow var(--transition);
+  }
+  .scrolled .header {
+      background-color: rgba(11, 11, 10, 0.85);
+      backdrop-filter: blur(14px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  }
+  .header__inner {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: var(--space-7);
+  }
+  .header__logo {
+    display: inline-flex;
+    align-items: center;
+    line-height: 0;
+    gap: var(--space-2);
+  }
+  .header__logo :global(.logo--mark) {
+    width: 58px;
+  }
+  .header__logo :global(.logo-mobile) {
+    display: none;
+  }
+  .header__nav {
+      justify-self: center;
+      min-width: 0;
+      background: rgba(18, 17, 16, 0.75);
+      border: 1px solid rgba(214, 179, 106, 0.25);
+      border-radius: 999px;
+      padding: 10px 18px;
+  }
+  .header__nav ul {
+      display: flex;
+      justify-content: center;
+      gap: var(--space-5);
+      list-style: none;
+      white-space: nowrap;
+      flex-wrap: nowrap;
+  }
+  .header__nav a {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    font-weight: 500;
+    position: relative;
+    padding: 8px 14px;
+    border-radius: 999px;
+    transition: color var(--transition), background-color var(--transition);
+  }
+  .header__nav a:hover,
+  .header__nav a.active {
+      background: rgba(214, 179, 106, 0.16);
+      color: var(--accent-strong);
+  }
+  .header__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-5);
+    white-space: nowrap;
+    justify-self: end;
+    flex-wrap: nowrap;
+  }
+  .header__contact {
+    display: flex;
+    align-items: center;
+  }
+  .header__phone {
+    font-size: 0.82rem;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--text);
+  }
+  .header__phone:hover { color: var(--accent-strong); }
+  .header__channel {
+    font-size: 0.64rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    padding: 7px 16px;
+    border: 1px solid rgba(214, 179, 106, 0.5);
+    border-radius: 999px;
+  }
+  .header__channel:hover {
+    color: #0b0b0a;
+    background: var(--accent);
+  }
+  .header__cta {
+    padding: calc(var(--space-2) + 2px) var(--space-4);
+    font-size: 0.62rem;
+  }
+  .header__toggle {
+      display: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 999px;
+      border: 1px solid rgba(214, 179, 106, 0.4);
+      background: transparent;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      flex-direction: column;
+      padding: 0;
+  }
+  .header__toggle span {
+      width: 18px;
+      height: 1px;
+      background: var(--accent);
+      transition: transform var(--transition), opacity var(--transition);
+  }
+
+  @media (max-width: 1440px) {
+      .header__nav ul {
+          gap: var(--space-4);
+      }
+      .header__nav a {
+          font-size: 0.64rem;
+          letter-spacing: 0.06em;
+      }
+      .header__logo :global(.logo--full) {
+          width: clamp(120px, 10vw, 160px);
+      }
+      .header__cta {
+          padding: var(--space-2) var(--space-3);
+          font-size: 0.6rem;
+      }
+  }
+  @media (max-width: 1280px) {
+      .header__contact {
+          display: none;
+      }
+  }
+  @media (max-width: 1200px) {
+      .header__channel {
+          display: none;
+      }
+      .header__actions {
+          gap: var(--space-3);
+      }
+  }
+  @media (max-width: 1100px) {
+      .header__nav {
+          display: none;
+      }
+      .header__phone {
+          display: none;
+      }
+      .header__cta {
+          display: none !important;
+          visibility: hidden !important;
+          opacity: 0 !important;
+          pointer-events: none !important;
+      }
+      .header__toggle {
+          display: inline-flex;
+      }
+      .header__logo :global(.logo-desktop) {
+          display: none;
+      }
+      .header__logo :global(.logo-mobile) {
+          display: inline-flex;
+          width: clamp(140px, 40vw, 190px);
+      }
+  }
+  @media (max-width: 900px) {
+      .header__actions {
+          gap: var(--space-2);
+      }
+  }
+
+  .mobile-nav__backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.55);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity var(--transition);
+      z-index: 999;
+  }
+  .mobile-nav {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: min(360px, 90vw);
+      height: 100vh;
+      background: var(--surface);
+      transform: translateX(100%);
+      transition: transform var(--transition);
+      z-index: 1000;
+      padding: var(--space-7) var(--space-6);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-6);
+  }
+  .mobile-nav__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+  }
+  .mobile-nav__close {
+      background: transparent;
+      border: none;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      font-size: 0.7rem;
+  }
+  .mobile-nav__menu ul {
+      list-style: none;
+      display: grid;
+      gap: var(--space-4);
+  }
+  .mobile-nav__menu a {
+      font-size: 1.1rem;
+      color: var(--text);
+  }
+  .mobile-nav__contact {
+      margin-top: auto;
+      display: grid;
+      gap: var(--space-4);
+  }
+  .mobile-nav__phone {
+      font-size: 1.1rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+  }
+  .mobile-nav__messengers {
+      display: flex;
+      gap: var(--space-4);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--muted);
+  }
+  .mobile-nav__channel {
+      display: inline-flex;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(214, 179, 106, 0.4);
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-size: 0.7rem;
+  }
+  .mobile-nav__cta {
+      display: none !important;
+  }
+
+  body.nav-open .mobile-nav {
+      transform: translateX(0);
+  }
+  body.nav-open .mobile-nav__backdrop {
+      opacity: 1;
+      pointer-events: auto;
+  }
+</style>
+
+<script>
+    document.addEventListener('scroll', () => {
+        const body = document.body;
+        if (window.scrollY > 50) {
+            body.classList.add('scrolled');
+        } else {
+            body.classList.remove('scrolled');
+        }
+    });
+
+    const toggles = document.querySelectorAll('[data-nav-toggle]');
+    const backdrop = document.querySelector('[data-nav-backdrop]');
+    const body = document.body;
+
+    const closeNav = () => {
+        body.classList.remove('nav-open');
+        toggles.forEach(btn => btn.setAttribute('aria-expanded', 'false'));
+    };
+
+    toggles.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const isOpen = body.classList.toggle('nav-open');
+            toggles.forEach(t => t.setAttribute('aria-expanded', String(isOpen)));
+        });
+    });
+
+    backdrop?.addEventListener('click', closeNav);
+    document.querySelectorAll('.mobile-nav a').forEach(link => {
+        link.addEventListener('click', closeNav);
+    });
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') closeNav();
+    });
+</script>

@@ -1,0 +1,104 @@
+﻿---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Section from "../components/ui/Section.astro";
+import CTAFormLong from "../components/CTAFormLong.astro";
+import { site } from "../data/site";
+import { buildContactSchema } from "../lib/schema";
+
+const meta = {
+  title: "Контакты 1001 Мебель в Сочи",
+  description: "Контакты мебели на заказ в Сочи ✓ Телефон и мессенджеры ✓ Бесплатный замер ✓ Работаем по всему Сочи, Адлеру и Красной Поляне.",
+  canonical: "/kontakty"
+};
+
+const schema = [buildContactSchema()];
+---
+<BaseLayout {...meta} schema={schema}>
+  <Section class="section-sm">
+    <span class="eyebrow">Контакты</span>
+    <h1>Связаться с нами</h1>
+    <p>Работаем по всему Сочи. Поможем рассчитать мебель для новостройки и подобрать материалы.</p>
+  </Section>
+
+  <Section id="lead" class="contact" background="surface">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24">
+      <div class="space-y-16">
+        <div>
+          <span class="eyebrow">Офис и шоурум</span>
+          <p class="font-serif text-3xl text-white leading-tight mb-4">
+             {site.address.city}, <br /> {site.address.street}
+          </p>
+          <p class="text-muted text-sm">Посещение по предварительной договоренности. Работаем по всему Сочи.</p>
+        </div>
+
+        <div>
+          <span class="eyebrow">Прямая связь</span>
+          <a href={site.phoneLink} class="font-serif text-4xl text-white hover:text-accent transition-colors block mb-4">
+            {site.phone}
+          </a>
+          <p class="text-muted">{site.email}</p>
+        </div>
+
+        <div>
+          <span class="eyebrow">Мессенджеры</span>
+          <div class="flex gap-6 flex-wrap">
+            <a href={site.whatsapp} class="contact-pill" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+            <a href={site.telegram} class="contact-pill" target="_blank" rel="noopener noreferrer">Telegram</a>
+          </div>
+        </div>
+
+        <div>
+          <span class="eyebrow">Telegram‑канал</span>
+          <a href={site.telegramChannel} class="channel-link" target="_blank" rel="noopener noreferrer">t.me/mebelSochi2023</a>
+          <p class="text-muted text-sm">Публикуем кейсы, цены и полезные советы для новостроек.</p>
+        </div>
+      </div>
+
+      <div class="bg-surface-2 p-8 md:p-12 rounded-sm border border-white/10 relative">
+        <div class="absolute -top-3 left-8 bg-accent text-black text-[10px] font-bold uppercase tracking-[0.2em] px-4 py-2">
+          Быстрый расчет
+        </div>
+        <CTAFormLong title="Запрос на консультацию" />
+      </div>
+    </div>
+  </Section>
+
+  <Section padding="none" container={false}>
+    <div class="map-block h-[500px] w-full bg-surface-2 relative border-y border-white/10 grayscale invert filter">
+      <div class="w-full h-full flex items-center justify-center">
+        <p class="text-white/20 font-bold uppercase tracking-widest">Карта загружается...</p>
+        <iframe src="https://yandex.ru/map-widget/v1/?ll=39.736375%2C43.602507&z=12" width="100%" height="100%" frameborder="0" allowfullscreen="true" style="position:absolute; top:0; left:0; width:100%; height:100%;"></iframe>
+      </div>
+    </div>
+  </Section>
+
+</BaseLayout>
+
+<style>
+  .contact-pill {
+    padding: 8px 16px;
+    border-radius: 999px;
+    border: 1px solid rgba(214, 179, 106, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-size: 0.75rem;
+    color: var(--text);
+  }
+  .contact-pill:hover {
+    background: var(--accent);
+    color: #0b0b0a;
+  }
+  .channel-link {
+    display: inline-flex;
+    margin-top: var(--space-3);
+    padding-bottom: 4px;
+    border-bottom: 1px solid rgba(214, 179, 106, 0.6);
+    color: var(--accent);
+    font-size: 0.95rem;
+  }
+  @media (max-width: 768px) {
+    .map-block {
+      height: 320px;
+    }
+  }
+</style>

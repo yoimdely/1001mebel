@@ -1,0 +1,113 @@
+﻿---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Section from "../components/ui/Section.astro";
+import Hero from "../components/ui/Hero.astro";
+import Grid from "../components/ui/Grid.astro";
+import Button from "../components/ui/Button.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import ImageMosaic from "../components/ImageMosaic.astro";
+import { galleryStudio } from "../data/gallery";
+import { buildBreadcrumbSchema } from "../lib/schema";
+
+const breadcrumbs = [
+  { name: "Главная", url: "/" },
+  { name: "О компании", url: "/o-kompanii" }
+];
+
+const meta = {
+  title: "О компании 1001 Мебель",
+  description: "Производство премиальной мебели на заказ в Сочи с 2010 года ⭐ Собственное производство, опытная команда дизайнеров ✓ 350+ реализованных проектов ✓ Европейские материалы и фурнитура ✓ Гарантия качества.",
+  canonical: "/o-kompanii"
+};
+
+const schema = [buildBreadcrumbSchema(breadcrumbs)];
+---
+<BaseLayout {...meta} schema={schema}>
+
+  <!-- HERO -->
+  <Hero
+    title="Больше, чем просто производство"
+    subtitle="О компании"
+    description="«1001 Мебель» — 15 лет проектирования и производства мебели на заказ в Сочи. Мы создаем кухни, шкафы и решения для новостроек под ключ."
+    image="/images/kitchen-hero.jpg"
+    height="large"
+    overlay={true}
+  >
+     <div slot="actions" class="flex gap-4">
+       <Button href="#philosophy">Наша философия</Button>
+     </div>
+  </Hero>
+
+  <!-- BREADCRUMBS -->
+  <Section padding="none" class="pt-8 relative z-20">
+    <Breadcrumbs items={breadcrumbs} />
+  </Section>
+
+  <!-- PHILOSOPHY -->
+  <Section id="philosophy" background="surface">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+       <div class="relative reveal-up">
+          <div class="aspect-4-5 rounded-lg overflow-hidden shadow-2xl">
+             <img src="/images/kitchen-hero.jpg" alt="О мастерской" class="w-full h-full object-cover" />
+          </div>
+          <div class="absolute -bottom-10 -right-10 bg-surface-3 border border-white/10 p-8 backdrop-blur-md rounded-sm hidden md:block">
+             <span class="block text-4xl font-serif text-accent mb-2">350+</span>
+             <p class="text-xs uppercase tracking-widest text-muted">Реализованных <br/> проектов</p>
+          </div>
+       </div>
+       
+       <div class="reveal-up">
+          <h2 class="font-serif text-3xl md:text-5xl text-white mb-8">Наша философия</h2>
+          <p class="text-lg text-muted mb-12">
+             Наша миссия — создавать мебель, которая будет радовать вас десятилетиями. Мы берем на себя полный цикл ответственности: от первой линии в проекте до финальной регулировки фасадов в вашем доме.
+          </p>
+          
+          <div class="space-y-8">
+             {[
+                { t: 'Прозрачность', d: 'Детальная смета до копейки без скрытых платежей.' },
+                { t: 'Качество', d: 'Бескомпромиссный выбор материалов и фурнитуры.' },
+                { t: 'Ответственность', d: 'Честная гарантия и пожизненный сервис изделий.' }
+             ].map(item => (
+                <div class="flex gap-6">
+                   <div class="w-2 h-2 rounded-full bg-accent mt-2 shrink-0"></div>
+                   <div>
+                      <h4 class="text-xl text-white mb-2">{item.t}</h4>
+                      <p class="text-sm text-muted">{item.d}</p>
+                   </div>
+                </div>
+             ))}
+          </div>
+       </div>
+    </div>
+  </Section>
+
+  <!-- PRODUCTION -->
+  <ImageMosaic
+    title="Производство"
+    text="Наш цех оснащен современным оборудованием, поэтому мы реализуем проекты любой сложности с миллиметровой точностью и контролем качества."
+    images={galleryStudio}
+  />
+
+  <!-- HISTORY -->
+  <Section>
+    <div class="max-w-3xl mb-16 reveal-up">
+       <span class="text-accent text-xs font-bold tracking-[0.2em] uppercase block mb-4">История</span>
+       <h2 class="font-serif text-4xl md:text-5xl text-white">Этапы развития</h2>
+    </div>
+    
+    <Grid columns={3} gap="large">
+      {[
+        { y: '2008 – 2012', t: 'Становление', d: 'От небольшого цеха до репутации надежных мастеров в Сочи. Формирование первых стандартов качества.' },
+        { y: '2013 – 2019', t: 'Технологии', d: 'Полное перевооружение производства. Внедрение компьютерного проектирования и автоматизации процессов.' },
+        { y: '2020 – Сегодня', t: 'Совершенство', d: 'Фокус на премиальном сегменте и комплексной меблировке новостроек. Развитие собственного дизайн-направления.' }
+      ].map((item, i) => (
+        <article class="reveal-up border-b border-white/10 pb-8">
+          <div class="font-serif text-3xl text-accent mb-6">{item.y}</div>
+          <h3 class="text-xl text-white mb-4">{item.t}</h3>
+          <p class="text-muted text-sm leading-relaxed">{item.d}</p>
+        </article>
+      ))}
+    </Grid>
+  </Section>
+
+</BaseLayout>

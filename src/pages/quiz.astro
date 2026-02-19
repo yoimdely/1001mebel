@@ -1,0 +1,597 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Section from "../components/ui/Section.astro";
+import Container from "../components/ui/Container.astro";
+
+const steps = [
+  {
+    id: "type",
+    title: "Что нужно спроектировать?",
+    options: ["Кухня", "Шкафы/гардеробная", "Мебель под ключ", "Другое"]
+  },
+  {
+    id: "object",
+    title: "Тип объекта",
+    options: ["Студия / 1‑комн.", "2‑комн.", "3‑комн. и больше", "Дом / таунхаус"]
+  },
+  {
+    id: "timeline",
+    title: "Когда планируете старт?",
+    options: ["Сразу после ключей", "В течение 1–2 месяцев", "Планирую позже"]
+  },
+  {
+    id: "budget",
+    title: "Ориентир по бюджету",
+    options: ["до 300 000 ₽", "300 000 – 600 000 ₽", "600 000 ₽ и выше"]
+  },
+  {
+    id: "style",
+    title: "Предпочтения по стилю",
+    options: ["Современный минимализм", "Неоклассика", "Теплая древесная палитра", "Нужна консультация"]
+  }
+];
+
+const meta = {
+  title: "Квиз — расчет мебели",
+  description: "Пошаговый квиз для расчета мебели под вашу новостройку в Сочи.",
+  canonical: "/quiz",
+  noindex: true
+};
+---
+<BaseLayout {...meta}>
+  <Section class="quiz-page" container={false}>
+    <div class="quiz-bg"></div>
+    <Container>
+      <div class="quiz-shell">
+        <div class="quiz-head">
+          <span class="eyebrow">Квиз</span>
+          <h1>Рассчитать мебель под ваш проект</h1>
+          <p>Пошаговый опрос без длинных форм. Итог — предварительная стоимость и сроки.</p>
+        </div>
+
+        <div class="quiz-progress">
+          <div class="quiz-progress__bar"><span></span></div>
+          <div class="quiz-progress__meta">
+            <span class="quiz-step-count">Шаг 1 из 6</span>
+            <span class="quiz-step-hint">Ответьте на пару вопросов</span>
+          </div>
+        </div>
+
+        <form id="quiz-form" class="quiz-form" novalidate>
+          <div class="quiz-stage">
+            {steps.map((step, index) => (
+              <div class="quiz-step" data-step={index + 1} data-field={step.id} hidden={index !== 0}>
+                <h2>{step.title}</h2>
+                <div class="quiz-options">
+                  {step.options.map(option => (
+                    <button class="quiz-option" type="button" data-field={step.id} data-value={option}>
+                      <span>{option}</span>
+                      <span class="quiz-option__icon">→</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            ))}
+
+            <div class="quiz-step" data-step={steps.length + 1} data-final hidden>
+              <h2>Контакты для связи</h2>
+              <div class="quiz-inputs">
+                <label class="quiz-input">
+                  <span>Ваше имя</span>
+                  <input type="text" name="name" placeholder="Имя" required />
+                </label>
+                <label class="quiz-input">
+                  <span>Телефон</span>
+                  <input type="tel" name="phone" placeholder="+7 (___) ___‑__‑__" required />
+                </label>
+                <div class="quiz-input quiz-input--full">
+                  <span>Как удобнее связаться?</span>
+                  <div class="quiz-pills">
+                    <button type="button" class="quiz-pill" data-field="contact" data-value="WhatsApp">WhatsApp</button>
+                    <button type="button" class="quiz-pill" data-field="contact" data-value="Telegram">Telegram</button>
+                    <button type="button" class="quiz-pill" data-field="contact" data-value="Звонок">Звонок</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="quiz-final">
+                <button type="button" class="quiz-back">Назад</button>
+                <button type="submit" class="quiz-submit">Получить расчет</button>
+              </div>
+              <p class="quiz-disclaimer">Отправляя форму, вы соглашаетесь на обработку персональных данных.</p>
+            </div>
+          </div>
+
+          <div class="quiz-nav">
+            <button type="button" class="quiz-back">Назад</button>
+            <button type="button" class="quiz-next" disabled>Далее</button>
+          </div>
+
+          {steps.map(step => (
+            <input type="hidden" name={step.id} />
+          ))}
+          <input type="hidden" name="contact" />
+        </form>
+      </div>
+    </Container>
+  </Section>
+</BaseLayout>
+
+<style>
+  .quiz-page {
+    position: relative;
+    min-height: calc(100vh - var(--header-height));
+    padding-top: var(--space-8);
+    padding-bottom: var(--space-6);
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  .quiz-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(520px 320px at 15% 20%, rgba(214, 179, 106, 0.2), transparent 60%),
+      radial-gradient(600px 400px at 85% 10%, rgba(214, 179, 106, 0.15), transparent 60%);
+    pointer-events: none;
+  }
+  .quiz-shell {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+    padding: var(--space-5);
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(214, 179, 106, 0.3);
+    background: rgba(13, 12, 11, 0.85);
+    box-shadow: var(--shadow-gold);
+    width: 100%;
+    height: auto !important;
+    min-height: auto !important;
+    max-height: none !important;
+  }
+  .quiz-head h1 {
+    margin: var(--space-4) 0 var(--space-3);
+    font-size: clamp(2.1rem, 1.4rem + 2.6vw, 3.2rem);
+  }
+  .quiz-head p {
+    margin-bottom: 0;
+  }
+  .quiz-progress {
+    display: grid;
+    gap: var(--space-3);
+  }
+  .quiz-progress__bar {
+    height: 6px;
+    background: rgba(214, 179, 106, 0.2);
+    border-radius: 999px;
+    overflow: hidden;
+  }
+  .quiz-progress__bar span {
+    display: block;
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(135deg, var(--accent-strong), var(--accent));
+    border-radius: 999px;
+    transition: width var(--transition);
+  }
+  .quiz-progress__meta {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    font-size: var(--font-size-small);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+  }
+  .quiz-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+    min-height: 0;
+  }
+  .quiz-stage {
+    position: relative;
+    width: 100%;
+  }
+  .quiz-step {
+    position: relative;
+    display: none;
+    gap: var(--space-5);
+    grid-template-columns: 1fr;
+  }
+  .quiz-step.is-active {
+    display: grid;
+  }
+  .quiz-step h2 {
+    font-size: clamp(1.6rem, 1.1rem + 2vw, 2.4rem);
+  }
+  .quiz-step[data-final] {
+    gap: var(--space-4);
+  }
+  .quiz-step[data-final] .quiz-inputs {
+    gap: var(--space-3);
+  }
+  .quiz-step[data-final] .quiz-pills {
+    gap: var(--space-2);
+  }
+  .quiz-options {
+    display: grid;
+    gap: var(--space-4);
+  }
+  .quiz-option {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-4) var(--space-5);
+    border-radius: 18px;
+    border: 1px solid rgba(214, 179, 106, 0.3);
+    background: rgba(18, 17, 16, 0.7);
+    color: var(--text);
+    text-transform: none;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition), background var(--transition);
+  }
+  .quiz-option:hover {
+    transform: translateY(-2px);
+    border-color: rgba(214, 179, 106, 0.6);
+    box-shadow: 0 12px 30px rgba(214, 179, 106, 0.2);
+  }
+  .quiz-option.is-selected {
+    border-color: var(--accent-strong);
+    box-shadow: 0 16px 36px rgba(214, 179, 106, 0.32);
+    background: rgba(214, 179, 106, 0.12);
+  }
+  .quiz-option__icon {
+    font-size: 1.2rem;
+    color: var(--accent);
+  }
+
+  .quiz-inputs {
+    display: grid;
+    gap: var(--space-4);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .quiz-input {
+    display: grid;
+    gap: var(--space-3);
+    font-size: var(--font-size-small);
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--muted);
+  }
+  .quiz-input--full {
+    grid-column: 1 / -1;
+  }
+  .quiz-input input {
+    background: transparent;
+    border: 1px solid rgba(214, 179, 106, 0.25);
+    border-radius: 14px;
+    padding: 12px 14px;
+    color: var(--text);
+    font-size: 1rem;
+  }
+  .quiz-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+  .quiz-pill {
+    border-radius: 999px;
+    padding: 8px 14px;
+    border: 1px solid rgba(214, 179, 106, 0.35);
+    background: transparent;
+    color: var(--text);
+    font-size: 0.75rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+  .quiz-pill.is-selected {
+    background: var(--accent);
+    color: #0b0b0a;
+  }
+
+  .quiz-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-4);
+  }
+  .quiz-back {
+    background: transparent;
+    border: 1px solid rgba(214, 179, 106, 0.4);
+    color: var(--text);
+    padding: 10px 18px;
+    border-radius: 999px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 0.7rem;
+  }
+  .quiz-next {
+    background: linear-gradient(135deg, var(--accent-strong), var(--accent));
+    color: #0b0b0a;
+    border: none;
+    padding: 12px 22px;
+    border-radius: 999px;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    font-size: 0.75rem;
+  }
+  .quiz-next:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+  .quiz-final {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-4);
+    margin-top: var(--space-2);
+  }
+  .quiz-submit {
+    border: none;
+    border-radius: 999px;
+    padding: 12px 24px;
+    background: linear-gradient(135deg, var(--accent-strong), var(--accent));
+    color: #0b0b0a;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .quiz-disclaimer {
+    margin-top: var(--space-3);
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+
+  @media (max-width: 768px) {
+    .quiz-shell {
+      padding: var(--space-4);
+      height: min(560px, calc(100vh - var(--header-height) - 32px));
+    }
+    .quiz-progress__meta {
+      letter-spacing: 0.08em;
+    }
+    .quiz-option {
+      padding: var(--space-4);
+    }
+    .quiz-final {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .quiz-stage {
+      min-height: clamp(260px, 40vh, 360px);
+    }
+    .quiz-inputs {
+      grid-template-columns: 1fr;
+    }
+  }
+  @media (max-width: 560px) {
+    .quiz-progress__meta {
+      justify-content: center;
+      text-align: center;
+    }
+    .quiz-step-hint {
+      display: none;
+    }
+    .quiz-head h1 {
+      font-size: clamp(1.6rem, 1.1rem + 2.4vw, 2.3rem);
+    }
+    .quiz-head p {
+      display: none;
+    }
+  }
+  @media (max-height: 760px) {
+    .quiz-shell {
+      gap: var(--space-5);
+      padding: var(--space-4);
+      height: min(520px, calc(100vh - var(--header-height) - 24px));
+    }
+    .quiz-form {
+      gap: var(--space-5);
+    }
+    .quiz-step {
+      gap: var(--space-4);
+    }
+    .quiz-options {
+      gap: var(--space-3);
+    }
+    .quiz-option {
+      padding: var(--space-3) var(--space-4);
+    }
+    .quiz-stage {
+      min-height: clamp(240px, 36vh, 320px);
+    }
+  }
+  @media (max-height: 700px) {
+    .quiz-head p {
+      display: none;
+    }
+    .quiz-head h1 {
+      margin-bottom: var(--space-2);
+    }
+    .quiz-input {
+      letter-spacing: 0.12em;
+      font-size: 0.72rem;
+    }
+    .quiz-input input {
+      padding: 10px 12px;
+    }
+    .quiz-disclaimer {
+      display: none;
+    }
+    .quiz-progress {
+      gap: var(--space-2);
+    }
+    .quiz-step-hint {
+      display: none;
+    }
+  }
+  @media (min-width: 920px) {
+    .quiz-options {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+</style>
+
+<script>
+  const steps = Array.from(document.querySelectorAll(".quiz-step"));
+  const total = steps.length;
+  const progressBar = document.querySelector(".quiz-progress__bar span");
+  const stepCount = document.querySelector(".quiz-step-count");
+  const stepHint = document.querySelector(".quiz-step-hint");
+  const nextBtn = document.querySelector(".quiz-next");
+  const backBtn = document.querySelector(".quiz-back");
+  const nav = document.querySelector(".quiz-nav");
+  let current = 0;
+
+  const hiddenInputs = new Map();
+  document.querySelectorAll('input[type="hidden"]').forEach(input => {
+    hiddenInputs.set(input.name, input);
+  });
+
+  const updateStep = () => {
+    steps.forEach((step, index) => {
+      const isActive = index === current;
+      step.hidden = !isActive;
+      step.classList.toggle("is-active", isActive);
+    });
+
+    const progress = Math.round(((current + 1) / total) * 100);
+    if (progressBar) progressBar.style.width = `${progress}%`;
+    if (stepCount) stepCount.textContent = `Шаг ${current + 1} из ${total}`;
+    if (stepHint) stepHint.textContent = current + 1 === total ? "Оставьте контакты" : "Ответьте на пару вопросов";
+
+    const isFinal = current === total - 1;
+    if (nav) nav.style.display = isFinal ? "none" : "flex";
+
+    if (backBtn) backBtn.disabled = current === 0;
+    if (nextBtn) {
+      const activeStep = steps[current];
+      const field = activeStep?.dataset.field;
+      const isAnswered = field ? Boolean(hiddenInputs.get(field)?.value) : true;
+      nextBtn.disabled = !isAnswered;
+    }
+  };
+
+  const goNext = () => {
+    if (current < total - 1) {
+      current += 1;
+      updateStep();
+    }
+  };
+
+  const goBack = () => {
+    if (current > 0) {
+      current -= 1;
+      updateStep();
+    }
+  };
+
+  document.querySelectorAll(".quiz-option").forEach(option => {
+    option.addEventListener("click", () => {
+      const field = option.dataset.field;
+      const value = option.dataset.value;
+      if (field && hiddenInputs.get(field)) {
+        hiddenInputs.get(field).value = value || "";
+        const siblings = option.closest(".quiz-options")?.querySelectorAll(".quiz-option");
+        siblings?.forEach(btn => btn.classList.remove("is-selected"));
+        option.classList.add("is-selected");
+      }
+      setTimeout(goNext, 120);
+    });
+  });
+
+  document.querySelectorAll(".quiz-pill").forEach(pill => {
+    pill.addEventListener("click", () => {
+      const field = pill.dataset.field;
+      const value = pill.dataset.value;
+      if (field && hiddenInputs.get(field)) {
+        hiddenInputs.get(field).value = value || "";
+        const siblings = pill.parentElement?.querySelectorAll(".quiz-pill");
+        siblings?.forEach(btn => btn.classList.remove("is-selected"));
+        pill.classList.add("is-selected");
+      }
+    });
+  });
+
+  nextBtn?.addEventListener("click", () => {
+    const activeStep = steps[current];
+    const field = activeStep?.dataset.field;
+    const isAnswered = field ? Boolean(hiddenInputs.get(field)?.value) : true;
+    if (isAnswered) goNext();
+  });
+
+  backBtn?.addEventListener("click", goBack);
+  document.querySelectorAll(".quiz-back").forEach(btn => btn.addEventListener("click", goBack));
+
+  updateStep();
+
+  // Handle form submission
+  document.getElementById("quiz-form")?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    
+    // Collect form data
+    const formData = new FormData(document.getElementById("quiz-form"));
+    const data = Object.fromEntries(formData);
+    
+    console.log("📋 Submitting quiz data:", data);
+    
+    // Show loading state
+    const submitBtn = document.querySelector(".quiz-submit");
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Отправляю...";
+    }
+    
+    try {
+      // Send to Cloudflare Pages Function
+      const response = await fetch("/api/send-lead", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      
+      let responseData;
+      try {
+        responseData = await response.json();
+      } catch (e) {
+        responseData = { error: "Invalid JSON response" };
+      }
+      
+      console.log("✅ Telegram response:", responseData, "Status:", response.status);
+      
+      if (!response.ok) {
+        // ОШИБКА! Показываем пользователю и НЕ редиректим сразу
+        console.error("⚠️ Failed to send to Telegram:", responseData);
+        alert(`ОШИБКА ОТПРАВКИ! \nСтатус: ${response.status}\nОтвет: ${JSON.stringify(responseData)}\n\nЗаявка НЕ отправлена в Telegram. Сделайте скриншот этой ошибки.`);
+        
+        if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = "Попробовать снова";
+        }
+        return; // Прерываем выполнение, чтобы не уходить на спасибки
+      } else {
+        console.log("🎉 Successfully sent to Telegram!");
+      }
+      
+      // Save to localStorage for reference
+      localStorage.setItem("quiz-submission", JSON.stringify(data));
+      
+      // Redirect to thank you page ONLY if success
+      window.location.href = "/spasibo";
+      
+    } catch (error) {
+      console.error("❌ Network Error submitting form:", error);
+      alert(`ОШИБКА СЕТИ! \n${error.message}\n\nПроверьте интернет или настройки Cloudflare.`);
+      
+      if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = "Попробовать снова";
+      }
+    }
+  });
+</script>
